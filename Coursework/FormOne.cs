@@ -13,7 +13,6 @@ namespace Coursework
 {
     public partial class Main : Form
     {
-
         //declaration of all global variables - used to reference in methods outside the parser
         Location[] globalArray;
         Year[] globalYear;
@@ -180,7 +179,7 @@ namespace Coursework
             yearDrop.Items.Clear(); //clears the current drop for the year for when selecting a new location
 
             string selectedLocation = locationDrop.SelectedItem.ToString(); //declares variable containing the locatin selected
-            
+            MessageBox.Show(selectedLocation);
             int indexOfLocation = getLocationData(selectedLocation); //finds the index of the location
 
             globalSelectedLocation = indexOfLocation;
@@ -279,7 +278,7 @@ namespace Coursework
                 }
                 try
                 {
-                    //displays all the properties of the month and their values
+                    //displays all the properties of the location and their values
                     LocationView.Items.Add($"Location | {globalArray[globalSelectedLocation].getLocationName()}");
                     LocationView.Items.Add($"Street | {globalArray[globalSelectedLocation].getStreet()}");
                     LocationView.Items.Add($"County | {globalArray[globalSelectedLocation].getCounty()}");
@@ -287,9 +286,11 @@ namespace Coursework
                     LocationView.Items.Add($"Latitude | {globalArray[globalSelectedLocation].getLatitude()}");
                     LocationView.Items.Add($"Longitude | {globalArray[globalSelectedLocation].getLongitude()}");
 
+                    //displays all the properties of the year and their values
                     YearView.Items.Add($"Year | {globalYear[globalSelectedYear].getYear()}");
                     YearView.Items.Add($"Description | {globalYear[globalSelectedYear].getDescription()}");
 
+                    //displays all the properties of the month and their values
                     MainView.Items.Add($"Month | {month}");
                     MainView.Items.Add($"MaximumTemperature | {globalMonth[selectedMonth].getMaxTemperature()}°");
                     MainView.Items.Add($"Minimum Temperature | {globalMonth[selectedMonth].getMinTemperature()}°");
@@ -299,6 +300,7 @@ namespace Coursework
                 }
                 catch (Exception error)
                 {
+                    //try-catch to make sure that the input is suffficient
                     MessageBox.Show(error.ToString());
                     MessageBox.Show("Have you selected a year and a month?");
                 }
@@ -383,13 +385,16 @@ namespace Coursework
 
         private void button4_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Liz is the best!");
+            //special feature!
+            //weather prediction?
         }
         
         private void EditButton_Click(object sender, EventArgs e)
         {
             //edit or add the data - will open a new form
-            
+            DataForm data = new DataForm(); //declares the form as an instance in the code
+            this.Hide(); //hides the current form
+            data.Show(); //shows the DataForm
         }
     }
 }
