@@ -70,8 +70,9 @@
             this.EditButton.Name = "EditButton";
             this.EditButton.Size = new System.Drawing.Size(199, 45);
             this.EditButton.TabIndex = 2;
-            this.EditButton.Text = "EDIT";
+            this.EditButton.Text = "ADD/EDIT";
             this.EditButton.UseVisualStyleBackColor = true;
+            this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
             // 
             // button4
             // 

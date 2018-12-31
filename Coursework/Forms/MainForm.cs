@@ -176,6 +176,7 @@ namespace Coursework
 
             locationCheck = true;
 
+            monthDrop.Items.Clear(); //clears the current drop for the month for when selecting a new location
             yearDrop.Items.Clear(); //clears the current drop for the year for when selecting a new location
 
             string selectedLocation = locationDrop.SelectedItem.ToString(); //declares variable containing the locatin selected
@@ -383,6 +384,12 @@ namespace Coursework
         private void button4_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Liz is the best!");
+        }
+        
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+            //edit or add the data - will open a new form
+            
         }
     }
 }
