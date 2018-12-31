@@ -165,13 +165,11 @@ namespace Coursework
             MessageBox.Show("Parsing Complete!"); //alerts if the parsing is complete
 
         }
-
+       
         //testing still in progress
         private void MainView_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
-
-
 
         private void locationDrop_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -234,6 +232,8 @@ namespace Coursework
         private void DisplayButton_Click(object sender, EventArgs e)
         {
             if (locationCheck == true & yearCheck == true & monthCheck == true){
+                LocationView.Items.Clear();
+                YearView.Items.Clear();
                 MainView.Items.Clear(); //clears the mainview to prevent addition of months 
 
                 string month = "";
@@ -302,12 +302,35 @@ namespace Coursework
                     MessageBox.Show("Have you selected a year and a month?");
                 }
             }
-            else
+            //by theory, some of these should not be called because you cannot have a month without a year
+            //you cannot have a year without a location thus you cannot have a month without a location
+            else if(locationCheck == false & yearCheck == true & monthCheck == true)
             {
-                MessageBox.Show("You haven't selected a location/year/month");
+                MessageBox.Show("You haven't selected a location");
+            }
+            else if (locationCheck == true & yearCheck == false & monthCheck == true)
+            {
+                MessageBox.Show("You haven't selected a year");
+            }
+            else if (locationCheck == true & yearCheck == true & monthCheck == false)
+            {
+                MessageBox.Show("You haven't selected a month");
+            }
+            else if (locationCheck == false & yearCheck == false & monthCheck == false)
+            {
+                MessageBox.Show("You haven't selected a location & year & month");
+            }
+            else if (locationCheck == false & yearCheck == true & monthCheck == false)
+            {
+                MessageBox.Show("You haven't selected a location & month");
+            }
+            else if (locationCheck == true & yearCheck == false & monthCheck == false)
+            {
+                MessageBox.Show("You haven't selected a year & month");
             }
         }
 
+        //finds the index of the year in the array
         public int getYearData(string _selectedYear)
         {
             int indexOfYear = 0;
@@ -357,40 +380,9 @@ namespace Coursework
             return arrayPosition;
         }
 
-        //public string displayLocation(int _index)
-        //{
-        //    string output = "";
-        //    int index = _index;
-
-        //    output = output + $"{globalArray[index].getLocationName()} \n";
-        //    output = output + $"{globalArray[index].getStreet()} \n";
-        //    output = output + $"{globalArray[index].getCounty()} \n";
-        //    output = output + $"{globalArray[index].getPostcode()} \n";
-        //    output = output + $"{globalArray[index].getLatitude()} \n";
-        //    output = output + $"{globalArray[index].getLongitude()} \n";
-        //    output = output + $"{globalArray[index].getYearsObserved()} \n";
-
-        //    MessageBox.Show(output);
-
-        //    return output;
-        //}
+        private void button4_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Liz is the best!");
+        }
     }
 }
-
-//MessageBox.Show($"Year: {theYear} \n" +
-//    $"Month: {monthID} \n" +
-//    $"MaxTemp: {maxTemperature} \n" +
-//    $"MinTemp: {minTemperature} \n" +
-//    $"Frost: {daysFrost} \n" +
-//    $"Rainfall: {rainfall} \n" +
-//    $"Sunshine: {sunshine} \n");
-
-//MessageBox.Show($"Location: {locationName} \n" +
-//    $"Street: {street} \n" +
-//    $"County: {county} \n" +
-//    $"Postcode: {postcode} \n" +
-//    $"Latitude: {latitude} \n" +
-//    $"Longitude: {longitude} \n" +
-//    $"Years: {numberOfYears} \n");
-
-//MessageBox.Show($"YearDescription: {yearDescription}");
