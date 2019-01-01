@@ -49,6 +49,7 @@
             this.submitButton = new System.Windows.Forms.Button();
             this.addYearButton = new System.Windows.Forms.Button();
             this.addLocationButton = new System.Windows.Forms.Button();
+            this.addFile = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label2
@@ -235,11 +236,22 @@
             this.addLocationButton.Text = "Add Location";
             this.addLocationButton.UseVisualStyleBackColor = true;
             // 
+            // addFile
+            // 
+            this.addFile.Location = new System.Drawing.Point(673, 292);
+            this.addFile.Name = "addFile";
+            this.addFile.Size = new System.Drawing.Size(75, 23);
+            this.addFile.TabIndex = 27;
+            this.addFile.Text = "addtofile";
+            this.addFile.UseVisualStyleBackColor = true;
+            this.addFile.Click += new System.EventHandler(this.addFile_Click);
+            // 
             // DataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 426);
+            this.Controls.Add(this.addFile);
             this.Controls.Add(this.addLocationButton);
             this.Controls.Add(this.addYearButton);
             this.Controls.Add(this.submitButton);
@@ -292,5 +304,6 @@
         private System.Windows.Forms.Button submitButton;
         private System.Windows.Forms.Button addYearButton;
         private System.Windows.Forms.Button addLocationButton;
+        private System.Windows.Forms.Button addFile;
     }
 }
