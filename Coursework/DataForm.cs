@@ -24,9 +24,6 @@ namespace Coursework
         int globalSelectedYear;
         int globalSelectedLocation;
         int selectedMonth;
-        bool locationCheck = false;
-        bool yearCheck = false;
-        bool monthCheck = false;
 
         public void ParseFile()
         {
@@ -152,7 +149,7 @@ namespace Coursework
 
         private void DataForm_Load(object sender, EventArgs e)
         {
-            ParseFile();
+            ParseFile(); //runs after the form is loaded
         }
 
         private void chooseLocation_SelectedIndexChanged(object sender, EventArgs e)
@@ -164,17 +161,20 @@ namespace Coursework
 
             string selectedLocation = chooseLocation.SelectedItem.ToString();
             int indexOfLocation = getLocationIndex(selectedLocation);
+
             globalSelectedLocation = indexOfLocation; //assigns a value for the global variable to be used elsewhere
-            showYearData(indexOfLocation);
+
+            showYearData(indexOfLocation); //displays the location to the listbox
         }
 
         public int getLocationIndex(string _location)
         {
-            string nameOfLocation = _location;
+            string nameOfLocation;
             int indexOfLocation = 0; //variable used to store the index of the location, defaults to 0
             int arraySize;
 
-            arraySize = globalArray.Length;
+            nameOfLocation = _location;
+            arraySize = globalArray.Length; //extracts the length of the global location array
 
             for (int i = 0; i < (arraySize - 1); i++)
             {
@@ -194,23 +194,28 @@ namespace Coursework
 
         public void showYearData(int _indexOfLocation)
         {
-            int locationIndex = _indexOfLocation;
+            int locationIndex;
             int sizeOfLocation; //will store the number of years in the location
+
+            Year[] yearArray_LOCAL; //local year array - cleaner code
+
+            locationIndex = _indexOfLocation;
             sizeOfLocation = globalArray[locationIndex].getYearsObserved().Length;
 
-            for(int i = 0; i < (sizeOfLocation - 1); i++)
+            yearArray_LOCAL = globalArray[locationIndex].getYearsObserved(); //assigns values to the local year array
+
+            //adds all of the years to the listbox
+            for (int i = 0; i < (sizeOfLocation - 1); i++)
             {
-                chooseYear.Items.Add(globalArray[locationIndex].getYearsObserved()[i].getYear());
+                chooseYear.Items.Add(yearArray_LOCAL[i].getYear());
             }
 
         }
 
         private void chooseYear_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            chooseMonth.Items.Clear();
-
-            //clears the month values
+            //clears the month selected and its values
+            chooseMonth.Items.Clear(); 
             monthBox.Clear();
             maxTempBox.Clear();
             minTempBox.Clear();
@@ -219,11 +224,13 @@ namespace Coursework
             sunshineBox.Clear();
 
             int indexOfYear = 0;
-            string selectedYear = chooseYear.SelectedItem.ToString();
+            string selectedYear;
+
+            selectedYear = chooseYear.SelectedItem.ToString();
             indexOfYear = getYearIndex(selectedYear);
             globalSelectedYear = indexOfYear;
 
-            showMonthData(indexOfYear);
+            showMonthData(indexOfYear); //displays all of the month data
         }
 
         public int getYearIndex(string _selectedYear)
@@ -308,6 +315,65 @@ namespace Coursework
             daysFrostBox.Text = globalMonth[indexOfMonth].getDaysFrost().ToString();
             rainfallBox.Text = globalMonth[indexOfMonth].getRainfall().ToString();
             sunshineBox.Text = globalMonth[indexOfMonth].getSunshine().ToString();
+
+        }
+
+        private void submitButton_Click(object sender, EventArgs e)
+        {
+
+            //creates a local copy of the year and month array - cleaner code
+            Year[] yearArray_LOCAL;
+            Month[] monthArray_LOCAL;
+
+            //declares variables to hold the new values
+            double newMaxTemp;
+            double newMinTemp;
+            int newDaysFrost;
+            double newRainfall;
+            double newSunshine;
+
+            //extracts the values from the textboxes and assigns them to associated variable
+            newMaxTemp = Convert.ToDouble(maxTempBox.Text);
+            newMinTemp = Convert.ToDouble(minTempBox.Text);
+            newDaysFrost = Convert.ToInt32(daysFrostBox.Text);
+            newRainfall = Convert.ToDouble(rainfallBox.Text);
+            newSunshine = Convert.ToDouble(sunshineBox.Text);
+
+            //assigns a value to the local copies of the class arrays
+            yearArray_LOCAL = globalArray[globalSelectedLocation].getYearsObserved();
+            monthArray_LOCAL = yearArray_LOCAL[globalSelectedYear].getMonths();
+
+            //sets the new values into the selected month
+            monthArray_LOCAL[selectedMonth].setMaxTemperature(newMaxTemp);
+            monthArray_LOCAL[selectedMonth].setMinTemperature(newMinTemp);
+            monthArray_LOCAL[selectedMonth].setDaysFrost(newDaysFrost);
+            monthArray_LOCAL[selectedMonth].setRainfall(newRainfall);
+            monthArray_LOCAL[selectedMonth].setSunshine(newSunshine);
+
+        }
+
+        //rewrites the file
+        public void ChangeFile()
+        {
+
+            string fileLocation; //contains the location of the testfile
+            StreamWriter fileWriter; //used to write to files
+
+            //assigns value to the fileLocation and fileWriter
+            fileLocation = "testFile.txt";
+            fileWriter = new StreamWriter(fileLocation);
+
+            int numberOfLocations;
+
+
+            //write number of locations
+                //loop location
+                    //write location properties
+                    //loop years
+                        //write year properties
+                        //loop months
+                            //write month properties
+
 
         }
     }

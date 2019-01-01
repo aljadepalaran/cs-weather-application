@@ -46,6 +46,9 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.submitButton = new System.Windows.Forms.Button();
+            this.addYearButton = new System.Windows.Forms.Button();
+            this.addLocationButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label2
@@ -204,11 +207,42 @@
             this.label8.TabIndex = 23;
             this.label8.Text = "Sunshine";
             // 
+            // submitButton
+            // 
+            this.submitButton.Location = new System.Drawing.Point(533, 251);
+            this.submitButton.Name = "submitButton";
+            this.submitButton.Size = new System.Drawing.Size(92, 35);
+            this.submitButton.TabIndex = 24;
+            this.submitButton.Text = "Submit";
+            this.submitButton.UseVisualStyleBackColor = true;
+            this.submitButton.Click += new System.EventHandler(this.submitButton_Click);
+            // 
+            // addYearButton
+            // 
+            this.addYearButton.Location = new System.Drawing.Point(533, 292);
+            this.addYearButton.Name = "addYearButton";
+            this.addYearButton.Size = new System.Drawing.Size(92, 35);
+            this.addYearButton.TabIndex = 25;
+            this.addYearButton.Text = "Add Year";
+            this.addYearButton.UseVisualStyleBackColor = true;
+            // 
+            // addLocationButton
+            // 
+            this.addLocationButton.Location = new System.Drawing.Point(533, 333);
+            this.addLocationButton.Name = "addLocationButton";
+            this.addLocationButton.Size = new System.Drawing.Size(92, 35);
+            this.addLocationButton.TabIndex = 26;
+            this.addLocationButton.Text = "Add Location";
+            this.addLocationButton.UseVisualStyleBackColor = true;
+            // 
             // DataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 426);
+            this.Controls.Add(this.addLocationButton);
+            this.Controls.Add(this.addYearButton);
+            this.Controls.Add(this.submitButton);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -255,5 +289,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button submitButton;
+        private System.Windows.Forms.Button addYearButton;
+        private System.Windows.Forms.Button addLocationButton;
     }
 }
