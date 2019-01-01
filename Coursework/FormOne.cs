@@ -179,7 +179,6 @@ namespace Coursework
             yearDrop.Items.Clear(); //clears the current drop for the year for when selecting a new location
 
             string selectedLocation = locationDrop.SelectedItem.ToString(); //declares variable containing the locatin selected
-            MessageBox.Show(selectedLocation);
             int indexOfLocation = getLocationData(selectedLocation); //finds the index of the location
 
             globalSelectedLocation = indexOfLocation;
