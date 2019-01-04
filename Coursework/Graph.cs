@@ -581,5 +581,16 @@ namespace Coursework
 
             return monthOutput;
         }
+
+        private void PredictButton_Click(object sender, EventArgs e)
+        {
+
+            PredictionService showForm = new PredictionService();
+
+            this.Hide();
+
+            showForm.Show();
+
+        }
     }
 }

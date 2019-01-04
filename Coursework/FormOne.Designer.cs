@@ -38,7 +38,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(74, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(83, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(132, 133);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -51,7 +51,7 @@
             this.enterButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.enterButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.enterButton.ForeColor = System.Drawing.Color.LimeGreen;
-            this.enterButton.Location = new System.Drawing.Point(74, 162);
+            this.enterButton.Location = new System.Drawing.Point(83, 161);
             this.enterButton.Name = "enterButton";
             this.enterButton.Size = new System.Drawing.Size(132, 52);
             this.enterButton.TabIndex = 45;
@@ -65,7 +65,7 @@
             this.quitButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.quitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.quitButton.ForeColor = System.Drawing.Color.LimeGreen;
-            this.quitButton.Location = new System.Drawing.Point(74, 220);
+            this.quitButton.Location = new System.Drawing.Point(83, 219);
             this.quitButton.Name = "quitButton";
             this.quitButton.Size = new System.Drawing.Size(132, 52);
             this.quitButton.TabIndex = 46;

@@ -319,6 +319,7 @@ namespace Coursework
                 {
                     //MessageBox.Show(location);
                     indexOfYear = i; //assigns i as the array position of the location
+                    MessageBox.Show($"{i} - {globalArray[globalSelectedLocation].getYearsObserved()[i].getYear().ToString()}");
                     break;
                 }
                 else

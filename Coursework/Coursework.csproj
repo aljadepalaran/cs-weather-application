@@ -61,6 +61,12 @@
     </Compile>
     <Compile Include="Location.cs" />
     <Compile Include="Month.cs" />
+    <Compile Include="PredictionService.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PredictionService.Designer.cs">
+      <DependentUpon>PredictionService.cs</DependentUpon>
+    </Compile>
     <Compile Include="Year.cs" />
     <Compile Include="FormOne.cs">
       <SubType>Form</SubType>
@@ -78,6 +84,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Graph.resx">
       <DependentUpon>Graph.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PredictionService.resx">
+      <DependentUpon>PredictionService.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
