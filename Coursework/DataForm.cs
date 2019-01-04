@@ -180,15 +180,11 @@ namespace Coursework
 
             string selectedLocation = chooseLocation.SelectedItem.ToString(); //takes in the location selected
             int indexOfLocation = getLocationIndex(selectedLocation); //gets the index of the location selected
-
-            MessageBox.Show(selectedLocation);
+            
             globalSelectedLocation = indexOfLocation; //assigns a value for the global variable to be used elsewhere
 
             Location selectedLocation_LOCAL;
-
             selectedLocation_LOCAL = globalArray[globalSelectedLocation]; //creates a local copy of the global location array
-
-            MessageBox.Show($"NAME: {selectedLocation_LOCAL.getLocationName()}, INDEX:{globalSelectedLocation}");
 
             //fills in the location data when a location has been selected
             locationNameBox.Text = selectedLocation_LOCAL.getLocationName();
@@ -208,14 +204,14 @@ namespace Coursework
             int arraySize;
 
             nameOfLocation = _location;
+            
             arraySize = globalArray.Length; //extracts the length of the global location array
 
-            for (int i = 0; i < (arraySize - 1); i++)
+            for (int i = 0; i < (arraySize); i++)
             {
                 //checks if the location in the array matches what is being searched for
                 if (globalArray[i].getLocationName() == nameOfLocation)
                 {
-                    //MessageBox.Show(location);
                     indexOfLocation = i; //assigns i as the array position of the location
                     break;
                 }
@@ -223,6 +219,7 @@ namespace Coursework
                 {
                 }
             }
+            
             return indexOfLocation;
         }
 
@@ -600,6 +597,8 @@ namespace Coursework
 
         private void addLocationButton_Click(object sender, EventArgs e)
         {
+
+            //<--- R E S I Z I N G   T H E   A R R A Y --->
             int globalLocationArraySize;
             int newSize;
 
@@ -625,6 +624,7 @@ namespace Coursework
                 monthArray[n] = new Month((n + 1), 0, 0, 0, 0, 0);
             }
 
+            //<--- C R E A T E S   A   N E W   Y E A R --->
             newYearArray[0] = new Year(0, "", monthArray);
 
             globalArray[newSize - 1] = new Location("EMPTY", "EMPTY", "EMPTY", "EMPTY", 0, 0, newYearArray);
