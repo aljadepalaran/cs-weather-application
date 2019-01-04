@@ -20,6 +20,14 @@ namespace Coursework
         int chosenYearIndex;
         int yBoundary = 300;
 
+        //LABEL CONTROL PANEL
+        Color labelTextColour = Color.Red;
+        Color labelBackColour = Color.Transparent;
+        Size labelSize = new Size(25,25);
+        Font labelFont = new Font("Arial", 6, FontStyle.Bold);
+
+        //GRAPH CONTROL PANEL
+
         public Graph(int _location, int _year)
         {
 
@@ -29,8 +37,6 @@ namespace Coursework
             chosenYearIndex = _year;
 
             ParseFile();
-
-            MessageBox.Show($"Location: {chosenLocationIndex} | Year: {chosenYearIndex}");
 
             DisplayMaxTemp();
             DisplayMinTemp();
@@ -168,8 +174,6 @@ namespace Coursework
             L.DrawLine(P, 400, 0, 400, 800);
             L.DrawLine(P, 800, 0, 800, 800);
 
-
-
         }
 
         public void DisplayMaxTemp()
@@ -182,6 +186,8 @@ namespace Coursework
             Month[] displayMonths;
 
             PictureBox[] arrayOne = new PictureBox[12];
+
+            Label[] labelArray = new Label[12];
 
             double maxTempValue; //will store the value of the maximum temperature
             int multiplierY; //will change relatively how tall the graph is so you have larger graphs that take more room
@@ -218,6 +224,19 @@ namespace Coursework
                 arrayOne[i].BackColor = Color.LimeGreen;
                 PictureBox displayBox = arrayOne[i];
                 Controls.Add(displayBox);
+
+
+                labelArray[i] = new Label();
+                labelArray[i].Location = new Point((425 + (i * 30)), 375);
+                labelArray[i].Text = GetMonthName(i);
+                labelArray[i].ForeColor = labelTextColour;
+                labelArray[i].BackColor = labelBackColour;
+                labelArray[i].Font = labelFont;
+                labelArray[i].Size = labelSize;
+                
+
+                Label displayLabel = labelArray[i];
+                Controls.Add(labelArray[i]);
             }
         }
 
@@ -231,6 +250,8 @@ namespace Coursework
             Month[] displayMonths;
 
             PictureBox[] arrayOne = new PictureBox[12];
+
+            Label[] labelArray = new Label[12];
 
             double minTempValue; //will store the value of the maximum temperature
             int multiplierY; //will change relatively how tall the graph is so you have larger graphs that take more room
@@ -267,6 +288,17 @@ namespace Coursework
                 arrayOne[i].BackColor = Color.LimeGreen;
                 PictureBox displayBox = arrayOne[i];
                 Controls.Add(displayBox);
+
+                labelArray[i] = new Label();
+                labelArray[i].Location = new Point((825 + (i * 30)), 375);
+                labelArray[i].Text = GetMonthName(i);
+                labelArray[i].ForeColor = labelTextColour;
+                labelArray[i].BackColor = labelBackColour;
+                labelArray[i].Font = labelFont;
+                labelArray[i].Size = labelSize;
+
+                Label displayLabel = labelArray[i];
+                Controls.Add(displayLabel);
             }
         }
 
@@ -280,6 +312,8 @@ namespace Coursework
             Month[] displayMonths;
 
             PictureBox[] arrayOne = new PictureBox[12];
+
+            Label[] labelArray = new Label[12];
 
             int daysFrost; //will store the value of the maximum temperature
             int multiplierY; //will change relatively how tall the graph is so you have larger graphs that take more room
@@ -316,6 +350,18 @@ namespace Coursework
                 arrayOne[i].BackColor = Color.LimeGreen;
                 PictureBox displayBox = arrayOne[i];
                 Controls.Add(displayBox);
+
+                labelArray[i] = new Label();
+                labelArray[i].Location = new Point((25 + (i * 30)), 775);
+                labelArray[i].Text = GetMonthName(i);
+                labelArray[i].ForeColor = labelTextColour;
+                labelArray[i].BackColor = labelBackColour;
+                labelArray[i].Font = labelFont;
+                labelArray[i].Size = labelSize;
+
+                Label displayLabel = labelArray[i];
+                Controls.Add(displayLabel);
+
             }
         }
 
@@ -329,6 +375,8 @@ namespace Coursework
             Month[] displayMonths;
 
             PictureBox[] arrayOne = new PictureBox[12];
+
+            Label[] labelArray = new Label[12];
 
             double rainfall; //will store the value of the maximum temperature
             int multiplierY; //will change relatively how tall the graph is so you have larger graphs that take more room
@@ -365,6 +413,18 @@ namespace Coursework
                 arrayOne[i].BackColor = Color.LimeGreen;
                 PictureBox displayBox = arrayOne[i];
                 Controls.Add(displayBox);
+
+
+                labelArray[i] = new Label();
+                labelArray[i].Location = new Point((425 + (i * 30)), 775);
+                labelArray[i].Text = GetMonthName(i);
+                labelArray[i].ForeColor = labelTextColour;
+                labelArray[i].BackColor = labelBackColour;
+                labelArray[i].Font = labelFont;
+                labelArray[i].Size = labelSize;
+
+                Label displayLabel = labelArray[i];
+                Controls.Add(displayLabel);
             }
         }
 
@@ -378,6 +438,8 @@ namespace Coursework
             Month[] displayMonths;
 
             PictureBox[] arrayOne = new PictureBox[12];
+
+            Label[] labelArray = new Label[12];
 
             int sunshine; //will store the value of the maximum temperature
             int multiplierY; //will change relatively how tall the graph is so you have larger graphs that take more room
@@ -414,6 +476,19 @@ namespace Coursework
                 arrayOne[i].BackColor = Color.LimeGreen;
                 PictureBox displayBox = arrayOne[i];
                 Controls.Add(displayBox);
+
+
+                labelArray[i] = new Label();
+                labelArray[i].Location = new Point((825 + (i * 30)), 775);
+                labelArray[i].Text = GetMonthName(i);
+                labelArray[i].ForeColor = labelTextColour;
+                labelArray[i].BackColor = labelBackColour;
+                labelArray[i].Font = labelFont;
+                labelArray[i].Size = labelSize;
+
+
+                Label displayLabel = labelArray[i];
+                Controls.Add(displayLabel);
             }
         }
 
@@ -451,6 +526,60 @@ namespace Coursework
 
             loadForm.Show();
 
+        }
+
+        public string GetMonthName(int _monthIndex)
+        {
+            int monthIndex;
+
+            string monthOutput = "";
+
+            monthIndex = _monthIndex + 1;
+
+            switch (monthIndex)
+            {
+                case 1:
+                    monthOutput = "JAN";
+                    break;
+                case 2:
+                    monthOutput = "FEB";
+                    break;
+                case 3:
+                    monthOutput = "MAR";
+                    break;
+                case 4:
+                    monthOutput = "APR";
+                    break;
+                case 5:
+                    monthOutput = "MAY";
+                    break;
+                case 6:
+                    monthOutput = "JUN";
+                    break;
+                case 7:
+                    monthOutput = "JUL";
+                    break;
+                case 8:
+                    monthOutput = "AUG";
+                    break;
+                case 9:
+                    monthOutput = "SEP";
+                    break;
+                case 10:
+                    monthOutput = "OCT";
+                    break;
+                case 11:
+                    monthOutput = "NOV";
+                    break;
+                case 12:
+                    monthOutput = "DEC";
+                    break;
+                default:
+                    monthOutput = "ERROR";
+                    break;
+            }
+
+            return monthOutput;
         }
     }
 }

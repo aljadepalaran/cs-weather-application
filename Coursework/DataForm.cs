@@ -335,18 +335,80 @@ namespace Coursework
         {
             int yearIndex = _indexOfYear;
             int sizeOfYear; //will store the number of years in the location
+            int monthIndex;
+
             sizeOfYear = globalArray[globalSelectedLocation].getYearsObserved().Length;
+
+            
 
             for (int i = 0; i < 12; i++)
             {
-                chooseMonth.Items.Add(globalArray[globalSelectedLocation].getYearsObserved()[globalSelectedYear].getMonths()[i].getMonthID());
+
+                monthIndex = globalArray[globalSelectedLocation].getYearsObserved()[globalSelectedYear].getMonths()[i].getMonthID();
+
+                chooseMonth.Items.Add(GetMonthName(monthIndex));
             }
         }
+        public string GetMonthName(int _monthIndex)
+        {
+            int monthIndex;
 
+            string monthOutput = "";
+
+            monthIndex = _monthIndex;
+
+            switch (monthIndex)
+            {
+                case 1:
+                    monthOutput = "January";
+                    break;
+                case 2:
+                    monthOutput = "February";
+                    break;
+                case 3:
+                    monthOutput = "March";
+                    break;
+                case 4:
+                    monthOutput = "April";
+                    break;
+                case 5:
+                    monthOutput = "May";
+                    break;
+                case 6:
+                    monthOutput = "June";
+                    break;
+                case 7:
+                    monthOutput = "July";
+                    break;
+                case 8:
+                    monthOutput = "August";
+                    break;
+                case 9:
+                    monthOutput = "September";
+                    break;
+                case 10:
+                    monthOutput = "October";
+                    break;
+                case 11:
+                    monthOutput = "November";
+                    break;
+                case 12:
+                    monthOutput = "December";
+                    break;
+                default:
+                    monthOutput = "ERROR";
+                    break;
+            }
+
+            return monthOutput;
+        }
         private void chooseMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string selectedMonth = chooseMonth.SelectedItem.ToString();
-            int indexOfMonth = getMonthIndex(selectedMonth);
+
+            string selectedMonth = chooseMonth.SelectedItem.ToString(); //jan, feb..
+
+            int indexOfMonth = getMonthIndex(selectedMonth); //returns an int with the month index
+
             getMonthIndex(selectedMonth);
 
             displayMonthData(indexOfMonth);
@@ -359,18 +421,47 @@ namespace Coursework
             int monthIndex = 0; //will store the index of the month
             selectedMonth = monthIndex;
 
-            for (int i = 1; i < 12; i++)
+            switch (monthSelected)
             {
-                //checks if the location in the array matches what is being searched for
-                if (globalArray[globalSelectedLocation].getYearsObserved()[globalSelectedYear].getMonths()[i].getMonthID().ToString() == monthSelected)
-                {
-                    //MessageBox.Show(location);
-                    monthIndex = i; //assigns i as the array position of the location
+                case "January":
+                    monthIndex = 0;
                     break;
-                }
-                else
-                {
-                }
+                case "February":
+                    monthIndex = 1;
+                    break;
+                case "March":
+                    monthIndex = 2;
+                    break;
+                case "April":
+                    monthIndex = 3;
+                    break;
+                case "May":
+                    monthIndex = 4;
+                    break;
+                case "June":
+                    monthIndex = 5;
+                    break;
+                case "July":
+                    monthIndex = 6;
+                    break;
+                case "August":
+                    monthIndex = 7;
+                    break;
+                case "September":
+                    monthIndex = 8;
+                    break;
+                case "October":
+                    monthIndex = 9;
+                    break;
+                case "November":
+                    monthIndex = 10;
+                    break;
+                case "December":
+                    monthIndex = 11;
+                    break;
+                default:
+                    monthIndex = 404;
+                    break;
             }
 
             globalMonth = globalYear[globalSelectedYear].getMonths();
