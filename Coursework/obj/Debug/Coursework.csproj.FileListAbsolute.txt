@@ -31,11 +31,11 @@ F:\Coursework\SOFT151\Coursework\Coursework\obj\Debug\Coursework.pdb
 C:\Users\palar\source\repos\SOFT151-Coursework\Coursework\bin\Debug\Coursework.exe.config
 C:\Users\palar\source\repos\SOFT151-Coursework\Coursework\bin\Debug\Coursework.exe
 C:\Users\palar\source\repos\SOFT151-Coursework\Coursework\bin\Debug\Coursework.pdb
-C:\Users\palar\source\repos\SOFT151-Coursework\Coursework\obj\Debug\Coursework.csprojAssemblyReference.cache
+C:\Users\palar\source\repos\SOFT151-Coursework\Coursework\obj\Debug\Coursework.DataForm.resources
 C:\Users\palar\source\repos\SOFT151-Coursework\Coursework\obj\Debug\Coursework.Main.resources
+C:\Users\palar\source\repos\SOFT151-Coursework\Coursework\obj\Debug\Coursework.Graph.resources
 C:\Users\palar\source\repos\SOFT151-Coursework\Coursework\obj\Debug\Coursework.Properties.Resources.resources
 C:\Users\palar\source\repos\SOFT151-Coursework\Coursework\obj\Debug\Coursework.csproj.GenerateResource.cache
 C:\Users\palar\source\repos\SOFT151-Coursework\Coursework\obj\Debug\Coursework.csproj.CoreCompileInputs.cache
 C:\Users\palar\source\repos\SOFT151-Coursework\Coursework\obj\Debug\Coursework.exe
 C:\Users\palar\source\repos\SOFT151-Coursework\Coursework\obj\Debug\Coursework.pdb
-C:\Users\palar\Source\Repos\SOFT151-Coursework\Coursework\obj\Debug\Coursework.DataForm.resources

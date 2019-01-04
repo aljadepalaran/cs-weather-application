@@ -17,6 +17,7 @@ namespace Coursework
         {
             InitializeComponent();
         }
+        
         //declaration of all global variables - used to reference in methods outside the parser
         Location[] globalArray;
         Year[] globalYear;
@@ -149,6 +150,31 @@ namespace Coursework
 
         private void DataForm_Load(object sender, EventArgs e)
         {
+            //clears the listboxes
+            chooseLocation.Items.Clear();
+            chooseYear.Items.Clear();
+            chooseMonth.Items.Clear();
+
+            //clears the location data
+            locationNameBox.Clear();
+            streetBox.Clear();
+            countyBox.Clear();
+            postcodeBox.Clear();
+            latitudeBox.Clear();
+            longitudeBox.Clear();
+
+            //clears the year data
+            yearBox.Clear();
+            yearDescriptionBox.Clear();
+
+            //clears the month data
+            monthBox.Clear();
+            maxTempBox.Clear();
+            minTempBox.Clear();
+            daysFrostBox.Clear();
+            rainfallBox.Clear();
+            sunshineBox.Clear();
+
             ParseFile(); //runs after the form is loaded
         }
 
@@ -227,6 +253,7 @@ namespace Coursework
         {
             int locationIndex;
             int sizeOfLocation; //will store the number of years in the location
+            int loopCounter;
 
             Year[] yearArray_LOCAL; //local year array - cleaner code
 
@@ -234,9 +261,14 @@ namespace Coursework
             sizeOfLocation = globalArray[locationIndex].getYearsObserved().Length;
 
             yearArray_LOCAL = globalArray[locationIndex].getYearsObserved(); //assigns values to the local year array
+            loopCounter = sizeOfLocation - 1;
+            if (loopCounter == 0)
+            {
+                loopCounter = 1;
+            }
 
             //adds all of the years to the listbox
-            for (int i = 0; i < (sizeOfLocation - 1); i++)
+            for (int i = 0; i < (loopCounter); i++)
             {
                 chooseYear.Items.Add(yearArray_LOCAL[i].getYear());
             }
@@ -619,7 +651,7 @@ namespace Coursework
                 globalArray[i] = tempLocationArray[i];
             }
 
-            for(int n = 0; n < 11; n++)
+            for(int n = 0; n < 12; n++)
             {
                 monthArray[n] = new Month((n + 1), 0, 0, 0, 0, 0);
             }
@@ -628,7 +660,7 @@ namespace Coursework
             newYearArray[0] = new Year(0, "", monthArray);
 
             globalArray[newSize - 1] = new Location("EMPTY", "EMPTY", "EMPTY", "EMPTY", 0, 0, newYearArray);
-            
+            globalArray[newSize - 1].setYearsObserved(newYearArray);
             chooseLocation.Items.Add(globalArray[newSize - 1].getLocationName());
         }
 
@@ -639,8 +671,14 @@ namespace Coursework
             //fill with 12 blank months
         }
 
-        public void SortYears()
+        private void graphButton_Click(object sender, EventArgs e)
         {
+
+            Graph dataGraph = new Graph(globalSelectedLocation, globalSelectedYear);
+
+            this.Hide();
+
+            dataGraph.Show();
 
         }
     }

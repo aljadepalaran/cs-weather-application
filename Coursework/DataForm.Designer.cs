@@ -66,6 +66,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.updateButton = new System.Windows.Forms.Button();
+            this.graphButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label2
@@ -461,12 +462,27 @@
             this.updateButton.UseVisualStyleBackColor = false;
             this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
             // 
+            // graphButton
+            // 
+            this.graphButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.graphButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.graphButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.graphButton.ForeColor = System.Drawing.Color.LimeGreen;
+            this.graphButton.Location = new System.Drawing.Point(565, 377);
+            this.graphButton.Name = "graphButton";
+            this.graphButton.Size = new System.Drawing.Size(76, 45);
+            this.graphButton.TabIndex = 45;
+            this.graphButton.Text = "Visualise";
+            this.graphButton.UseVisualStyleBackColor = false;
+            this.graphButton.Click += new System.EventHandler(this.graphButton_Click);
+            // 
             // DataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(799, 441);
+            this.Controls.Add(this.graphButton);
             this.Controls.Add(this.updateButton);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label14);
@@ -553,5 +569,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button updateButton;
+        private System.Windows.Forms.Button graphButton;
     }
 }
