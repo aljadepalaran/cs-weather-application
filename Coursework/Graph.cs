@@ -22,51 +22,53 @@ namespace Coursework
         int radioChoice;
         bool radioCheck = false;
 
-        //LABEL CONTROL PANEL
+        //<--- LABEL CONTROL PANEL --->
         Color labelTextColour = Color.Red;
         Color labelBackColour = Color.Transparent;
         Size labelSize = new Size(25,25);
         Font labelFont = new Font("Arial", 6, FontStyle.Bold);
-
-        //GRAPH CONTROL PANEL
+        Size titleSize = new Size(200, 50); //declares the size for the title labels
 
         public Graph()
         {
 
-            InitializeComponent();
+            InitializeComponent(); 
 
         }
 
-        public Graph(int _location, int _year)
+        public Graph(int _location, int _year) //a constructor that takes in the location index and year index 
         {
 
-            InitializeComponent();
+            InitializeComponent(); 
 
             chosenLocationIndex = _location;
-            chosenYearIndex = _year;
+            chosenYearIndex = _year; 
 
-            ParseFile();
+            ParseFile(); //runs the parser to fill the arrays
 
-            DisplayMaxTemp();
+            //displays all of the graphs
+            DisplayMaxTemp(); 
             DisplayMinTemp();
-            DisplayDaysFrost();
-            DisplayRainfall();
+            DisplayDaysFrost(); 
+            DisplayRainfall(); 
             DisplaySunshine();
 
-            radioChoice = 0;
+            radioChoice = 0; 
 
-            LoadLabels();
+            LoadLabels(); //loads all of the labels for the graphs
 
         }
 
         public void LoadLabels()
         {
 
-            Label maxTempLabel, minTempLabel, daysFrostLabel, rainfallLabel, sunshineLabel;
-
-            Size titleSize = new Size(200,50);
-
-            // M A X   T E M P   L A B E L
+            //declares the new labels
+            Label maxTempLabel; 
+            Label minTempLabel; 
+            Label daysFrostLabel;
+            Label rainfallLabel;
+            Label sunshineLabel;
+            //instantiates and edits the properties for the max temperature label
             maxTempLabel = new Label();
             maxTempLabel.Location = new Point(525, 20);
             maxTempLabel.Text = "Max Temp";
@@ -74,7 +76,8 @@ namespace Coursework
             maxTempLabel.BackColor = labelBackColour;
             maxTempLabel.Font = new Font("Arial", 25, FontStyle.Bold); ;
             maxTempLabel.Size = titleSize;
-
+            
+            //instantiates and edits the properties for the min temperature label
             minTempLabel = new Label();
             minTempLabel.Location = new Point(925, 20);
             minTempLabel.Text = "Min Temp";
@@ -83,6 +86,7 @@ namespace Coursework
             minTempLabel.Font = new Font("Arial", 25, FontStyle.Bold); ;
             minTempLabel.Size = titleSize;
 
+            //instantiates and edits the properties for the days frost label
             daysFrostLabel = new Label();
             daysFrostLabel.Location = new Point(110, 425);
             daysFrostLabel.Text = "Days Frost";
@@ -91,6 +95,7 @@ namespace Coursework
             daysFrostLabel.Font = new Font("Arial", 25, FontStyle.Bold); ;
             daysFrostLabel.Size = titleSize;
 
+            //instantiates and edits the properties for the rainfall label
             rainfallLabel = new Label();
             rainfallLabel.Location = new Point(525, 425);
             rainfallLabel.Text = "Rainfall";
@@ -99,6 +104,7 @@ namespace Coursework
             rainfallLabel.Font = new Font("Arial", 25, FontStyle.Bold); ;
             rainfallLabel.Size = titleSize;
 
+            //instantiates and edits the properties for the sunshine label
             sunshineLabel = new Label();
             sunshineLabel.Location = new Point(925, 425);
             sunshineLabel.Text = "Sunshine";
@@ -107,21 +113,22 @@ namespace Coursework
             sunshineLabel.Font = new Font("Arial", 25, FontStyle.Bold); ;
             sunshineLabel.Size = titleSize;
 
+            //adds in all of the labels
             Controls.Add(maxTempLabel);
-            Controls.Add(minTempLabel);
-            Controls.Add(daysFrostLabel);
-            Controls.Add(rainfallLabel);
-            Controls.Add(sunshineLabel);
-
+            Controls.Add(minTempLabel); 
+            Controls.Add(daysFrostLabel); 
+            Controls.Add(rainfallLabel); 
+            Controls.Add(sunshineLabel); 
 
         }
 
         public void ParseFile()
         {
+
             //declaration of location properties
-            string locationName;
-            string street;
-            string county;
+            string locationName; 
+            string street; 
+            string county; 
             string postcode;
             double latitude;
             double longitude;
@@ -139,18 +146,18 @@ namespace Coursework
             int daysFrost;
             double rainfall;
             double sunshine;
-
-            //declaring class arrays
-            Location[] locationArray;
+            
+            Location[] locationArray; 
 
             //declaration of StreamReader variables and methods
-            string filePath = "inputEXTENDED.txt"; //the filepath of the text file
-            StreamReader fileReader = new StreamReader(filePath); //streamreader to input data from the file
+            string filePath = "inputEXTENDED.txt"; 
+            StreamReader fileReader = new StreamReader(filePath); 
 
-            int numberOfLocations; //number of locations
-            int numberOfYears = 0; //the number of years in the location dataset
-            int monthCounter; //increments to 12, loops back
-            int yearCounter = 0; //increments to same # as years
+            //declaring variables used in looping
+            int numberOfLocations; 
+            int numberOfYears = 0; 
+            int monthCounter; 
+            int yearCounter = 0; 
             int locationCounter = 0;
 
             numberOfLocations = Convert.ToInt32(fileReader.ReadLine()); //reads the very first line - number of locations
@@ -231,15 +238,19 @@ namespace Coursework
                 locationCounter++; //increments the location counter - stops infinite loop
 
             }
+
             globalArray = locationArray; //sets the global array so that it can be used outside the parse
+
         }
 
         private void Graph_Paint(object sender, PaintEventArgs e)
         {
-            Graphics L = e.Graphics;
-            Pen P = new Pen(Color.LimeGreen);
 
-            //writes the borders (debugging purpose)
+            Graphics L = e.Graphics; //creates a graphics object
+
+            Pen P = new Pen(Color.LimeGreen); //creates a pen object
+
+            //draws lines for borders to separate the graphs
             L.DrawLine(P, 0, 400, 1200, 400);
             L.DrawLine(P, 400, 0, 400, 800);
             L.DrawLine(P, 800, 0, 800, 800);
@@ -249,53 +260,54 @@ namespace Coursework
         public void DisplayMaxTemp()
         {
 
+            //declaring all the objects that is used in displaying the max temperature
             Location selectedLocation;
-
             Year selectedYear;
-
-            Month[] displayMonths;
-
+            Month[] displayMonths; 
             PictureBox[] arrayOne = new PictureBox[12];
+            Label[] labelArray = new Label[12]; 
 
-            Label[] labelArray = new Label[12];
-
-            double maxTempValue; //will store the value of the maximum temperature
-            int multiplierY; //will change relatively how tall the graph is so you have larger graphs that take more room
-            double offsetY = 0; //will make sure the graphs are level
-            int maxValue;
+            //declaring variables used to get the data and display the data
+            double maxTempValue; 
+            int multiplierY; 
+            double offsetY; 
+            int maxValue; 
             int[] maxTempArray = new int[12];
+
+            offsetY = 0; //defaults the offset to 0
 
             //extracts all the data from the global array
             selectedLocation = globalArray[chosenLocationIndex];
-            selectedYear = globalArray[chosenLocationIndex].getYearsObserved()[chosenYearIndex];
-            displayMonths = selectedYear.getMonths();
 
-            //fills in an array of integers with all the values in the max temp data set.
+            selectedYear = globalArray[chosenLocationIndex].getYearsObserved()[chosenYearIndex];
+
+            displayMonths = selectedYear.getMonths();
+            
             for (int n = 0; n < 12; n++)
             {
-                maxTempArray[n] = Convert.ToInt32(displayMonths[n].getMaxTemperature());
+
+                maxTempArray[n] = Convert.ToInt32(displayMonths[n].getMaxTemperature()); //assigns values into the array of max temperatures
+
             }
+            
+            maxValue = LinearSearch(maxTempArray); //uses the LinearSearch procedure to find the highest value in the array
+            
+            multiplierY = yBoundary / maxValue; //finds the multiplier
 
-            //searches for the largest value in the array
-            maxValue = LinearSearch(maxTempArray);
-
-            //finds the multiplier
-            multiplierY = yBoundary / maxValue;
-
-            for (int i = 0; i < 12; i++)
+            for (int i = 0; i < 12; i++) 
             {
-                maxTempValue = multiplierY * displayMonths[i].getMaxTemperature();
 
-                offsetY = Math.Round(maxTempValue);
+                maxTempValue = multiplierY * displayMonths[i].getMaxTemperature(); //sets the value of the max temp for the month 
 
+                offsetY = Math.Round(maxTempValue); //sets the offset of the bar to level the bar
+                
+                //instantiates and edits the properties for the max temperature picturebox
                 arrayOne[i] = new PictureBox();
                 arrayOne[i].Location = new Point((425 + (i * 30)), (350 - Convert.ToInt32(offsetY)));
                 arrayOne[i].Size = new Size(25, Convert.ToInt32(maxTempValue));
                 arrayOne[i].BackColor = Color.LimeGreen;
-                PictureBox displayBox = arrayOne[i];
-                Controls.Add(displayBox);
-
-
+                
+                //instantiates and edits the properties for the max temperature label
                 labelArray[i] = new Label();
                 labelArray[i].Location = new Point((427 + (i * 30)), 375);
                 labelArray[i].Text = GetMonthName(i);
@@ -304,61 +316,63 @@ namespace Coursework
                 labelArray[i].Font = labelFont;
                 labelArray[i].Size = labelSize;
                 
-
-                Label displayLabel = labelArray[i];
+                //adds the label and the picturebox
                 Controls.Add(labelArray[i]);
+                Controls.Add(arrayOne[i]);
+
             }
         }
 
         public void DisplayMinTemp()
         {
 
+            //declaring all the objects that is used in displaying the max temperature
             Location selectedLocation;
-
             Year selectedYear;
-
             Month[] displayMonths;
-
             PictureBox[] arrayOne = new PictureBox[12];
-
             Label[] labelArray = new Label[12];
 
-            double minTempValue; //will store the value of the maximum temperature
-            int multiplierY; //will change relatively how tall the graph is so you have larger graphs that take more room
-            double offsetY = 0; //will make sure the graphs are level
-            int maxValue;
+            //declaring variables used to get the data and display the data
+            double minTempValue;
+            int multiplierY;
+            double offsetY; 
+            int maxValue; 
             int[] minTempArray = new int[12];
 
-            //extracts all the data from the global array
+            offsetY = 0; //defaults the offset to 0
+            
             selectedLocation = globalArray[chosenLocationIndex];
-            selectedYear = globalArray[chosenLocationIndex].getYearsObserved()[chosenYearIndex];
-            displayMonths = selectedYear.getMonths();
 
-            //fills in an array of integers with all the values in the max temp data set.
+            selectedYear = globalArray[chosenLocationIndex].getYearsObserved()[chosenYearIndex];
+
+            displayMonths = selectedYear.getMonths();
+            
             for (int n = 0; n < 12; n++)
             {
-                minTempArray[n] = Convert.ToInt32(displayMonths[n].getMinTemperature());
+
+                minTempArray[n] = Convert.ToInt32(displayMonths[n].getMinTemperature()); //assigns values into the array of min temperatures
+
             }
-
-            //searches for the largest value in the array
-            maxValue = LinearSearch(minTempArray);
-
-            //finds the multiplier
-            multiplierY = yBoundary / maxValue;
+            
+            maxValue = LinearSearch(minTempArray); //uses the LinearSearch procedure to find the highest value in the array
+            
+            multiplierY = yBoundary / maxValue; //finds the multiplier
 
             for (int i = 0; i < 12; i++)
             {
-                minTempValue = multiplierY * displayMonths[i].getMinTemperature();
 
-                offsetY = Math.Round(minTempValue);
+                minTempValue = multiplierY * displayMonths[i].getMinTemperature(); //sets the value of the min temp for the month 
 
+                offsetY = Math.Round(minTempValue); //sets the offset of the bar to level the bar
+                
+                //instantiates and edits the properties for the min temperature picturebox
                 arrayOne[i] = new PictureBox();
                 arrayOne[i].Location = new Point((825 + (i * 30)), (350 - Convert.ToInt32(offsetY)));
                 arrayOne[i].Size = new Size(25, Convert.ToInt32(minTempValue));
                 arrayOne[i].BackColor = Color.LimeGreen;
-                PictureBox displayBox = arrayOne[i];
-                Controls.Add(displayBox);
 
+                //instantiates and edits the properties for the min temperature label
                 labelArray[i] = new Label();
                 labelArray[i].Location = new Point((827 + (i * 30)), 375);
                 labelArray[i].Text = GetMonthName(i);
@@ -367,60 +381,61 @@ namespace Coursework
                 labelArray[i].Font = labelFont;
                 labelArray[i].Size = labelSize;
 
-                Label displayLabel = labelArray[i];
-                Controls.Add(displayLabel);
+                //adds the label and the picturebox
+                Controls.Add(arrayOne[i]);
+                Controls.Add(labelArray[i]);
+
             }
         }
 
         public void DisplayDaysFrost()
         {
-
+            //declaring all the objects that is used in displaying the max temperature
             Location selectedLocation;
-
             Year selectedYear;
-
             Month[] displayMonths;
-
             PictureBox[] arrayOne = new PictureBox[12];
-
             Label[] labelArray = new Label[12];
 
-            int daysFrost; //will store the value of the maximum temperature
-            int multiplierY; //will change relatively how tall the graph is so you have larger graphs that take more room
-            int offsetY = 0; //will make sure the graphs are level
-            int maxValue;
-            int[] daysFrostArray = new int[12];
+            //declaring variables used to get the data and display the data
+            int daysFrost; 
+            int multiplierY; 
+            int offsetY;
+            int maxValue; 
+            int[] daysFrostArray = new int[12]; 
 
-            //extracts all the data from the global array
+            offsetY = 0; //defaults the offset to 0
+             
             selectedLocation = globalArray[chosenLocationIndex];
-            selectedYear = globalArray[chosenLocationIndex].getYearsObserved()[chosenYearIndex];
+
+            selectedYear = globalArray[chosenLocationIndex].getYearsObserved()[chosenYearIndex]; 
+
             displayMonths = selectedYear.getMonths();
 
-            //fills in an array of integers with all the values in the max temp data set.
-            for (int n = 0; n < 12; n++)
+            for (int n = 0; n < 12; n++) 
             {
-                daysFrostArray[n] = displayMonths[n].getDaysFrost();
+
+                daysFrostArray[n] = displayMonths[n].getDaysFrost(); //assigns values into the array of days frost
+
             }
+            
+            maxValue = LinearSearch(daysFrostArray); //uses the LinearSearch procedure to find the highest value in the array
 
-            //searches for the largest value in the array
-            maxValue = LinearSearch(daysFrostArray);
-
-            //finds the multiplier
-            multiplierY = yBoundary / maxValue;
+            multiplierY = yBoundary / maxValue; //finds the multiplier
 
             for (int i = 0; i < 12; i++)
             {
-                daysFrost = multiplierY * displayMonths[i].getDaysFrost();
+                daysFrost = multiplierY * displayMonths[i].getDaysFrost(); //sets the value of the days frost for the month 
 
-                offsetY = daysFrost;
+                offsetY = daysFrost; //sets the offset of the bar to level the bar
 
+                //instantiates and edits the properties for the days frost picturebox
                 arrayOne[i] = new PictureBox();
                 arrayOne[i].Location = new Point((25 + (i * 30)), (750 - offsetY));
                 arrayOne[i].Size = new Size(25, daysFrost);
                 arrayOne[i].BackColor = Color.LimeGreen;
-                PictureBox displayBox = arrayOne[i];
-                Controls.Add(displayBox);
 
+                //instantiates and edits the properties for the days frost label
                 labelArray[i] = new Label();
                 labelArray[i].Location = new Point((27 + (i * 30)), 775);
                 labelArray[i].Text = GetMonthName(i);
@@ -429,62 +444,62 @@ namespace Coursework
                 labelArray[i].Font = labelFont;
                 labelArray[i].Size = labelSize;
 
-                Label displayLabel = labelArray[i];
-                Controls.Add(displayLabel);
+                //adds the label and the picturebox
+                Controls.Add(arrayOne[i]);
+                Controls.Add(labelArray[i]);
 
             }
         }
 
         public void DisplayRainfall()
         {
-
+            
+            //declaring all the objects that is used in displaying the max temperature
             Location selectedLocation;
-
             Year selectedYear;
-
             Month[] displayMonths;
-
             PictureBox[] arrayOne = new PictureBox[12];
-
             Label[] labelArray = new Label[12];
 
-            double rainfall; //will store the value of the maximum temperature
-            int multiplierY; //will change relatively how tall the graph is so you have larger graphs that take more room
-            int offsetY = 0; //will make sure the graphs are level
-            int maxValue;
+            //declaring variables used to get the data and display the data
+            double rainfall; 
+            int multiplierY; 
+            int offsetY;
+            int maxValue; 
             int[] rainfallArray = new int[12];
 
-            //extracts all the data from the global array
+            offsetY = 0; //defaults the offset to 0
+            
             selectedLocation = globalArray[chosenLocationIndex];
+
             selectedYear = globalArray[chosenLocationIndex].getYearsObserved()[chosenYearIndex];
-            displayMonths = selectedYear.getMonths();
 
-            //fills in an array of integers with all the values in the max temp data set.
-            for (int n = 0; n < 12; n++)
+            displayMonths = selectedYear.getMonths(); 
+
+            for (int n = 0; n < 12; n++) 
             {
-                rainfallArray[n] = Convert.ToInt32(displayMonths[n].getRainfall());
+
+                rainfallArray[n] = Convert.ToInt32(displayMonths[n].getRainfall()); //assigns values into the array of rainfall
+
             }
+            
+            maxValue = LinearSearch(rainfallArray); //uses the LinearSearch procedure to find the highest value in the array
 
-            //searches for the largest value in the array
-            maxValue = LinearSearch(rainfallArray);
-
-            //finds the multiplier
-            multiplierY = yBoundary / maxValue;
+            multiplierY = yBoundary / maxValue; //finds the multiplier
 
             for (int i = 0; i < 12; i++)
             {
-                rainfall = multiplierY * displayMonths[i].getRainfall();
+                rainfall = multiplierY * displayMonths[i].getRainfall(); //sets the value of the rainfall for the month 
 
-                offsetY = Convert.ToInt32(rainfall);
+                offsetY = Convert.ToInt32(rainfall); //sets the offset of the bar to level the bar
 
+                //instantiates and edits the properties for the rainfall picturebox
                 arrayOne[i] = new PictureBox();
                 arrayOne[i].Location = new Point((425 + (i * 30)), (750 - offsetY));
                 arrayOne[i].Size = new Size(25, Convert.ToInt32(rainfall));
                 arrayOne[i].BackColor = Color.LimeGreen;
-                PictureBox displayBox = arrayOne[i];
-                Controls.Add(displayBox);
 
-
+                //instantiates and edits the properties for the rainfall label
                 labelArray[i] = new Label();
                 labelArray[i].Location = new Point((427 + (i * 30)), 775);
                 labelArray[i].Text = GetMonthName(i);
@@ -493,61 +508,58 @@ namespace Coursework
                 labelArray[i].Font = labelFont;
                 labelArray[i].Size = labelSize;
 
-                Label displayLabel = labelArray[i];
-                Controls.Add(displayLabel);
+                //adds the label and the picturebox
+                Controls.Add(arrayOne[i]);
+                Controls.Add(labelArray[i]);
+
             }
         }
 
         public void DisplaySunshine()
         {
-
+           
+            //declaring all the objects that is used in displaying the max temperature
             Location selectedLocation;
-
             Year selectedYear;
-
             Month[] displayMonths;
-
             PictureBox[] arrayOne = new PictureBox[12];
-
             Label[] labelArray = new Label[12];
 
-            int sunshine; //will store the value of the maximum temperature
-            int multiplierY; //will change relatively how tall the graph is so you have larger graphs that take more room
-            int offsetY = 0; //will make sure the graphs are level
+            //declaring variables used to get the data and display the data
+            int sunshine;
+            int multiplierY; 
+            int offsetY = 0; 
             int maxValue;
             int[] sunshineArray = new int[12];
+            
+            selectedLocation = globalArray[chosenLocationIndex]; 
 
-            //extracts all the data from the global array
-            selectedLocation = globalArray[chosenLocationIndex];
-            selectedYear = globalArray[chosenLocationIndex].getYearsObserved()[chosenYearIndex];
+            selectedYear = globalArray[chosenLocationIndex].getYearsObserved()[chosenYearIndex]; 
+
             displayMonths = selectedYear.getMonths();
-
-            //fills in an array of integers with all the values in the max temp data set.
+            
             for (int n = 0; n < 12; n++)
             {
-                sunshineArray[n] = Convert.ToInt32(displayMonths[n].getSunshine());
+                sunshineArray[n] = Convert.ToInt32(displayMonths[n].getSunshine()); //assigns values into the array of sunshine
             }
+            
+            maxValue = LinearSearch(sunshineArray); //uses the LinearSearch procedure to find the highest value in the array
 
-            //searches for the largest value in the array
-            maxValue = LinearSearch(sunshineArray);
-
-            //finds the multiplier
-            multiplierY = yBoundary / maxValue;
+            multiplierY = yBoundary / maxValue; //finds the multiplier
 
             for (int i = 0; i < 12; i++)
             {
-                sunshine = multiplierY * Convert.ToInt32(displayMonths[i].getSunshine());
+                sunshine = multiplierY * Convert.ToInt32(displayMonths[i].getSunshine());  //sets the value of the sunshine for the month 
 
-                offsetY = sunshine;
+                offsetY = sunshine; //sets the offset of the bar to level the bar
 
+                //instantiates and edits the properties for the sunshine picturebox
                 arrayOne[i] = new PictureBox();
                 arrayOne[i].Location = new Point((825 + (i * 30)), (750 - offsetY));
                 arrayOne[i].Size = new Size(25, sunshine);
                 arrayOne[i].BackColor = Color.LimeGreen;
-                PictureBox displayBox = arrayOne[i];
-                Controls.Add(displayBox);
 
-
+                //instantiates and edits the properties for the sunshine label
                 labelArray[i] = new Label();
                 labelArray[i].Location = new Point((827 + (i * 30)), 775);
                 labelArray[i].Text = GetMonthName(i);
@@ -556,27 +568,36 @@ namespace Coursework
                 labelArray[i].Font = labelFont;
                 labelArray[i].Size = labelSize;
 
+                //adds the label and the picturebox
+                Controls.Add(arrayOne[i]);
+                Controls.Add(labelArray[i]);
 
-                Label displayLabel = labelArray[i];
-                Controls.Add(displayLabel);
             }
         }
 
+        //a procedure that searches through all of the elements in the array
         public int LinearSearch(int[] _numberArray)
         {
-            int[] arraySearch;
 
-            int maxValue = 0;
-            int arrayLength;
+            int[] arraySearch; //will store the integers that will be searched through
 
-            arraySearch = _numberArray;
-            arrayLength = arraySearch.Length;
+            //declares the variables used in the linear search
+            int maxValue; 
+            int arrayLength; 
 
-            for (int x = 0; x < arrayLength; x++)
+            maxValue = 0; //defaults the max value to 0
+
+            arraySearch = _numberArray; 
+
+            arrayLength = arraySearch.Length; 
+
+            for (int x = 0; x < arrayLength; x++) //loops through all of the elements in the array
             {
-                if(arraySearch[x] > maxValue)
+                if(arraySearch[x] > maxValue) //checks if the value in the array is larger than the current max value
                 {
-                    maxValue = arraySearch[x]; //swaps the value to the bigger value
+
+                    maxValue = arraySearch[x]; //changes the value to the bigger value
+
                 }
                 else
                 {
@@ -584,29 +605,33 @@ namespace Coursework
                 }
             }
 
-            return maxValue;
+            return maxValue; //returns the max value
+
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
 
-            DataForm loadForm = new DataForm();
+            DataForm loadForm = new DataForm(); //instantiates an object used to load a form
 
-            this.Hide();
+            this.Hide(); //hides this current form
 
-            loadForm.Show();
+            loadForm.Show(); //shows the form
 
         }
 
         public string GetMonthName(int _monthIndex)
         {
-            int monthIndex;
 
-            string monthOutput = "";
+            //declares the variables used in retrieving and displaying the month names
+            int monthIndex;
+            string monthOutput;
+
+            monthOutput = ""; //defaults the value of the output to an empty string
 
             monthIndex = _monthIndex + 1;
 
-            switch (monthIndex)
+            switch (monthIndex) //switch statement to go through all the values of monthIndex
             {
                 case 1:
                     monthOutput = "JAN";
@@ -648,57 +673,78 @@ namespace Coursework
                     monthOutput = "ERROR";
                     break;
             }
+            
+            return monthOutput; //returns the string containing the name of the month
 
-            return monthOutput;
         }
 
         private void predictButton_Click(object sender, EventArgs e)
         {
 
-            if (radioCheck == false)
+            if (radioCheck == false) //checks if a radiobutton has not been clicked
             {
-                MessageBox.Show("You have not selected a month property");
+                MessageBox.Show("You have not selected a month property"); //warns a user they need to select a radio button
             }
-            else if(radioCheck == true)
+            else if(radioCheck == true) //checks if a radiobutton has been clicked
             {
-                PredictionService loadForm = new PredictionService(chosenLocationIndex, chosenYearIndex, radioChoice);
 
-                loadForm.Show();
+                PredictionService loadForm = new PredictionService(chosenLocationIndex, chosenYearIndex, radioChoice); //creates an object to load a form
+
+                loadForm.Show(); //shows the form
+
             }
             else
             {
-                MessageBox.Show("ERROR");
+
+                MessageBox.Show("ERROR"); //returns an error if there is uncertainty in the value of boolean - robustness
+
             }
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            radioChoice = 0;
+
+            //sets the value for the radio choice - to be used in another form and changes the check to true
+            radioChoice = 0; 
             radioCheck = true;
+
+
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            radioChoice = 1;
-            radioCheck = true;
+
+            //sets the value for the radio choice - to be used in another form and changes the check to true
+            radioChoice = 1; 
+            radioCheck = true; 
+
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
-            radioChoice = 2;
-            radioCheck = true;
-        }
+
+            //sets the value for the radio choice - to be used in another form and changes the check to true
+            radioChoice = 2; 
+            radioCheck = true; 
+
+        } 
 
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
         {
+
+            //sets the value for the radio choice - to be used in another form and changes the check to true
             radioChoice = 3;
             radioCheck = true;
+
         }
 
         private void radioButton5_CheckedChanged(object sender, EventArgs e)
         {
+
+            //sets the value for the radio choice - to be used in another form and changes the check to true
             radioChoice = 4;
-            radioCheck = true;
+            radioCheck = true; 
+
         }
     }
 }

@@ -17,16 +17,16 @@ namespace Coursework
         {
             InitializeComponent();
         }
-        
+
+        //declaration of all global objects - used to reference in methods outside the parser
+        Location[] globalArray; 
+        Year[] globalYear; 
+        Month[] globalMonth;
+
         //declaration of all global variables - used to reference in methods outside the parser
-
-        Location[] globalArray; //global array of all the locations
-        Year[] globalYear; //global array of all the year - assigned later when a year is selected
-        Month[] globalMonth; //global array of all the months - assigned later when a month is selected
-
-        int globalSelectedYear; //the index for the year selected in the listbox
-        int globalSelectedLocation; //the index for the location selected in the listbox 
-        int globalSelectedMonth; //the index for the month selected in the listbox
+        int globalSelectedYear; 
+        int globalSelectedLocation;
+        int globalSelectedMonth;
 
         public void ParseFile()
         {
@@ -149,7 +149,9 @@ namespace Coursework
                 locationCounter++; //increments the location counter - stops infinite loop
 
             }
+
             globalArray = locationArray; //sets the global array so that it can be used outside the parse
+
         }
 
         private void DataForm_Load(object sender, EventArgs e)
@@ -208,80 +210,60 @@ namespace Coursework
             rainfallBox.Clear();
             sunshineBox.Clear();
 
-            string selectedLocation = chooseLocation.SelectedItem.ToString(); //takes in the location selected
-            int indexOfLocation = getLocationIndex(selectedLocation); //gets the index of the location selected
-            
-            globalSelectedLocation = indexOfLocation; //assigns a value for the global variable to be used elsewhere
-
-            Location selectedLocation_LOCAL;
-            selectedLocation_LOCAL = globalArray[globalSelectedLocation]; //creates a local copy of the global location array
-
-            //fills in the location data when a location has been selected
-            locationNameBox.Text = selectedLocation_LOCAL.getLocationName();
-            streetBox.Text = selectedLocation_LOCAL.getStreet();
-            countyBox.Text = selectedLocation_LOCAL.getCounty();
-            postcodeBox.Text = selectedLocation_LOCAL.getPostcode();
-            latitudeBox.Text = selectedLocation_LOCAL.getLatitude().ToString();
-            longitudeBox.Text = selectedLocation_LOCAL.getLongitude().ToString();
-            
-            showYearData(indexOfLocation); //displays the location to the listbox
-        }
-
-        public int getLocationIndex(string _location)
-        {
-            string nameOfLocation; //stores the name of the location being looked for
-            int indexOfLocation = 0; //variable used to store the index of the location, defaults to 0
-            int arraySize; //finds the size of the location array - for searching through all of them
-
-            nameOfLocation = _location; //extracts the location name from the parameter
-            
-            arraySize = globalArray.Length; //extracts the length of the global location array
-
-            for (int i = 0; i < (arraySize); i++)
+            try
             {
-                //checks if the location in the array matches what is being searched for
-                if (globalArray[i].getLocationName() == nameOfLocation)
-                {
-                    indexOfLocation = i; //assigns i as the array position of the location
-                    break;
-                }
-                else
-                {
-                }
-            }
-            
-            return indexOfLocation;
-        }
+                globalSelectedLocation = chooseLocation.SelectedIndex;
 
+                Location selectedLocation_LOCAL;
+
+                selectedLocation_LOCAL = globalArray[globalSelectedLocation]; //creates a local copy of the global location array
+
+                //fills in the location data when a location has been selected
+                locationNameBox.Text = selectedLocation_LOCAL.getLocationName();
+                streetBox.Text = selectedLocation_LOCAL.getStreet();
+                countyBox.Text = selectedLocation_LOCAL.getCounty();
+                postcodeBox.Text = selectedLocation_LOCAL.getPostcode();
+                latitudeBox.Text = selectedLocation_LOCAL.getLatitude().ToString();
+                longitudeBox.Text = selectedLocation_LOCAL.getLongitude().ToString();
+
+                showYearData(globalSelectedLocation); //displays the location to the listbox
+            }
+            catch
+            {
+
+            }
+        }
+        
         public void showYearData(int _indexOfLocation)
         {
-            int locationIndex; //stores the index of the location selected
-            int sizeOfLocation; //will store the number of years in the location
-            int loopCounter; //will be used for a loop
 
-            Year[] yearArray_LOCAL; //local year array - cleaner code
+            //declares the variables used in showing the year data
+            int locationIndex;
+            int sizeOfLocation; 
+            int loopCounter;
 
-            locationIndex = _indexOfLocation; //extracts the location index from the parameter
+            Year[] yearArray_LOCAL; 
+
+            locationIndex = _indexOfLocation; 
+
             sizeOfLocation = globalArray[locationIndex].getYearsObserved().Length; //finds the size of the year array for the location selected
 
-            yearArray_LOCAL = globalArray[locationIndex].getYearsObserved(); //assigns values to the local year array
-            loopCounter = sizeOfLocation - 1; //declares the loop
+            yearArray_LOCAL = globalArray[locationIndex].getYearsObserved(); 
 
-            //checks if the loop counter is 0: it will break
-            if (loopCounter == 0)
-            {
-                loopCounter = 1;
-            }
+            loopCounter = sizeOfLocation ; 
 
             //adds all of the years to the listbox
             for (int i = 0; i < (loopCounter); i++)
             {
+
                 chooseYear.Items.Add(yearArray_LOCAL[i].getYear());
+
             }
         }
 
         private void chooseYear_SelectedIndexChanged(object sender, EventArgs e)
         {
+
             //clears the month selected and its values
             chooseMonth.Items.Clear(); 
             monthBox.Clear();
@@ -294,41 +276,37 @@ namespace Coursework
             //clears the year data
             yearBox.Clear();
             yearDescriptionBox.Clear();
-            
-            int indexOfYear = 0; //will store the index of the year selected in the location
-            string selectedYear;
 
-            Year selectedYear_LOCAL; //creates a local year object to work on
-
-            //error handling when the user has not selected a year
-            if(chooseYear.SelectedItem == null)
+            globalSelectedYear = chooseYear.SelectedIndex;
+           
+            try
             {
-                MessageBox.Show("You did not choose a year");
+
+                globalYear = globalArray[globalSelectedLocation].getYearsObserved();
+
+                yearBox.Text = globalYear[globalSelectedYear].getYear().ToString();
+
+                yearDescriptionBox.Text = globalYear[globalSelectedYear].getDescription();
+
+                showMonthData(globalSelectedYear); //displays all of the month data
+
             }
-            else
-            {
-                selectedYear = chooseYear.SelectedItem.ToString(); //sets the selected year
+            catch
+            { 
 
-                indexOfYear = getYearIndex(selectedYear); //gets the index of the year using the getYearIndex method
-
-                globalSelectedYear = indexOfYear; //assigns a value to the global selected year so it can be referenced outside the method without passing paramenter
-
-                selectedYear_LOCAL = globalArray[globalSelectedLocation].getYearsObserved()[globalSelectedYear]; //creates a local copy of the year
-
-                yearBox.Text = selectedYear_LOCAL.getYear().ToString(); //changes the value of the text box to the year
-
-                yearDescriptionBox.Text = selectedYear_LOCAL.getDescription(); //changes the value of the text box to the year description
-                
-                showMonthData(indexOfYear); //displays all of the month data
             }
         }
 
         //a method to get the index of the year selected - linear search function
         public int getYearIndex(string _selectedYear)
         {
-            string yearSelected = _selectedYear; //declares and assigns a value to the s
+
+            //declares variables used in getting the index of the year
+            string yearSelected;
             int indexOfYear = 0;
-            int sizeOfYear = globalArray[globalSelectedLocation].getYearsObserved().Length; //gets the size of the years
+            int sizeOfYear = globalArray[globalSelectedLocation].getYearsObserved().Length;
+
+            yearSelected = _selectedYear;
 
             //goes through every object in the global array and checks if it matches the location selected
             for (int i = 0; i < (sizeOfYear - 1); i++)
@@ -336,47 +314,55 @@ namespace Coursework
                 //checks if the location in the array matches what is being searched for
                 if (globalArray[globalSelectedLocation].getYearsObserved()[i].getYear().ToString() == yearSelected)
                 {
+
                     indexOfYear = i; //assigns i as the array position of the location to the variable that will be returned
                     break;
+
                 }
                 else
                 {
                 }
             }
 
-            globalYear = globalArray[globalSelectedLocation].getYearsObserved(); //gets the years array
+            globalYear = globalArray[globalSelectedLocation].getYearsObserved();
 
             return indexOfYear; //returns the index of the location
+
         }
 
         public void showMonthData(int _indexOfYear)
         {
-            int yearIndex; //will store the index of the location
-            int sizeOfYear; //will store the number of years in the location
-            int monthIndex; //will store the index of the month
 
-            yearIndex = _indexOfYear; //sets the index of the year, taken from the parameter
+            //declaring the variables used in showing the month data
+            int yearIndex; 
+            int sizeOfYear; 
+            int monthIndex; 
 
-            sizeOfYear = globalArray[globalSelectedLocation].getYearsObserved().Length; //finds the size of the array of years - to be used in the loop
+            yearIndex = _indexOfYear; 
 
-            for (int i = 0; i < 12; i++) //cycles through the months
+            sizeOfYear = globalArray[globalSelectedLocation].getYearsObserved().Length;
+
+            for (int i = 0; i < 12; i++) 
             {
 
                 monthIndex = globalArray[globalSelectedLocation].getYearsObserved()[globalSelectedYear].getMonths()[i].getMonthID(); //sets the index of the current month in the loop
 
                 chooseMonth.Items.Add(GetMonthName(monthIndex)); //displays the month name into the listbox using the GetMonthName method passing in the monthIndex as a parameter
+
             }
         }
 
         //returns the name of the month based on the value of the parameter - the index of the month
         public string GetMonthName(int _monthIndex)
         {
-            int monthIndex; //a local variable to store the parameter
-            string monthOutput; //declares the output string - the name of the month
+
+            //declares the variables used in getting the name of the month
+            int monthIndex; 
+            string monthOutput; 
 
             monthOutput = "ERROR"; //sets the value to error in case there is an error - it is the default value
 
-            monthIndex = _monthIndex; //assigns the parameter value to the monthIndex value
+            monthIndex = _monthIndex; 
 
             //switch statement to rename the output to the month name based on the index of the month
             switch (monthIndex)
@@ -422,81 +408,17 @@ namespace Coursework
                     break;
             }
 
-            return monthOutput; //returns the string output
+            return monthOutput; //returns the name of the month
         }
 
         private void chooseMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            string selectedMonth; //will store the selected item
+            globalSelectedMonth = chooseMonth.SelectedIndex;
 
-            selectedMonth = chooseMonth.SelectedItem.ToString();//takes in the selected item as a string and assigns it to a local variable
+            globalMonth = globalYear[globalSelectedYear].getMonths();
 
-            int indexOfMonth = getMonthIndex(selectedMonth); //returns an int with the month index
-
-            getMonthIndex(selectedMonth); //gets the index of the month by taking in a string and returning an integer
-
-            displayMonthData(indexOfMonth); //calls the procedure that displays the data of the month selected
-
-        }
-
-        public int getMonthIndex(string _selectedMonth)
-        {
-
-            string monthSelected; //will store the string that is passed in - the month selected
-
-            monthSelected = _selectedMonth; //assigns the value to the parameter being passed in
-
-            int monthIndex = 0; //will store the index of the month
-
-            switch (monthSelected)
-            {
-                case "January":
-                    monthIndex = 0;
-                    break;
-                case "February":
-                    monthIndex = 1;
-                    break;
-                case "March":
-                    monthIndex = 2;
-                    break;
-                case "April":
-                    monthIndex = 3;
-                    break;
-                case "May":
-                    monthIndex = 4;
-                    break;
-                case "June":
-                    monthIndex = 5;
-                    break;
-                case "July":
-                    monthIndex = 6;
-                    break;
-                case "August":
-                    monthIndex = 7;
-                    break;
-                case "September":
-                    monthIndex = 8;
-                    break;
-                case "October":
-                    monthIndex = 9;
-                    break;
-                case "November":
-                    monthIndex = 10;
-                    break;
-                case "December":
-                    monthIndex = 11;
-                    break;
-                default:
-                    monthIndex = 404;
-                    break;
-            }
-
-            globalMonth = globalYear[globalSelectedYear].getMonths(); //assigns a value to the global month array - the month that has been selected
-
-            globalSelectedMonth = monthIndex; //sets the value of the selected month to the globalSelectedMonth so it can be used globally
-
-            return monthIndex; //returns and variable containing an integer representing the index of the month
+            displayMonthData(globalSelectedMonth); //calls the procedure that displays the data of the month selected
 
         }
         
@@ -507,17 +429,13 @@ namespace Coursework
 
             indexOfMonth = _indexOfMonth; //assigns the value from the parameter to the local variable
 
-            monthBox.Text = globalMonth[indexOfMonth].getMonthID().ToString(); //sets the value in the textbox for month ID
-
-            maxTempBox.Text = globalMonth[indexOfMonth].getMaxTemperature().ToString(); //sets the value in the textbox for max temperature
-
-            minTempBox.Text = globalMonth[indexOfMonth].getMinTemperature().ToString(); //sets the value in the textbox for min temperature
-
-            daysFrostBox.Text = globalMonth[indexOfMonth].getDaysFrost().ToString(); //sets the value in the textbox for days frosted
-
-            rainfallBox.Text = globalMonth[indexOfMonth].getRainfall().ToString(); //sets the value in the textbox for rainfall
-            
-            sunshineBox.Text = globalMonth[indexOfMonth].getSunshine().ToString(); //sets the value in the textbox for sunshine
+            //sets the values of the textboxes with the month properties
+            monthBox.Text = globalMonth[indexOfMonth].getMonthID().ToString();
+            maxTempBox.Text = globalMonth[indexOfMonth].getMaxTemperature().ToString();
+            minTempBox.Text = globalMonth[indexOfMonth].getMinTemperature().ToString();
+            daysFrostBox.Text = globalMonth[indexOfMonth].getDaysFrost().ToString();
+            rainfallBox.Text = globalMonth[indexOfMonth].getRainfall().ToString();
+            sunshineBox.Text = globalMonth[indexOfMonth].getSunshine().ToString();
 
         }
 
@@ -774,12 +692,12 @@ namespace Coursework
         private void addLocationButton_Click(object sender, EventArgs e)
         {
             
-            int globalLocationArraySize; //will store the size of the global location array
-            int newSize; //will store the new size of the array
+            int globalLocationArraySize; 
+            int newSize; 
 
-            Location[] tempLocationArray; //creates a temporary location array
-            Year[] newYearArray = new Year[1]; //creates a new year array to be added into the empty location
-            Month[] monthArray = new Month[12]; //creates a new month array to be added into the emply year
+            Location[] tempLocationArray; 
+            Year[] newYearArray = new Year[1]; 
+            Month[] monthArray = new Month[12]; 
 
             globalLocationArraySize = globalArray.Length; //gets the length of the current array
             newSize = globalLocationArraySize + 1; //assigns the new size of the array - adds one to the current size
@@ -815,16 +733,15 @@ namespace Coursework
         {
 
             Year tempYear; //creates a temporary year object
-
-            int locationToAddTo_INDEX = globalSelectedLocation; //which location to add the year to
-
-            int currentLength; //will store the current length of the year array
-
-            int newLength; //will store the new length of the array
+            
+            int currentLength; 
+            int newLength;
+            int yearDate;
+            int yearLength;
 
             Month[] monthArray = new Month[12]; //declares an array of months
 
-            currentLength = globalArray[locationToAddTo_INDEX].getYearsObserved().Length; //gets the length of the year array in the location selected
+            currentLength = globalArray[globalSelectedLocation].getYearsObserved().Length; //gets the length of the year array in the location selected
 
             newLength = currentLength + 1; //assigns the new length
 
@@ -838,31 +755,34 @@ namespace Coursework
 
             }
 
-            tempYear = new Year(globalArray[locationToAddTo_INDEX].getYearsObserved()[newLength - 2].getYear(), "EMPTY", monthArray); //instantiates the temporary year with empty values
+            yearLength = globalArray[globalSelectedLocation].getYearsObserved().Length; 
+
+            yearDate = globalArray[globalSelectedLocation].getYearsObserved()[yearLength - 1].getYear() + 1; //adds on to the last year of the array
+
+            tempYear = new Year(yearDate, "New Year!", monthArray); //instantiates the temporary year with empty values
 
             yearArray_CONTAINER[newLength - 1] = tempYear; //stores the new temporary year into the array of year objects
 
-            for (int i = 0; i < globalArray[locationToAddTo_INDEX].getYearsObserved().Length; i++) //loops through the array of years
+            for (int i = 0; i < globalArray[globalSelectedLocation].getYearsObserved().Length; i++) //loops through the array of years
             {
 
-                yearArray_CONTAINER[i] = globalArray[locationToAddTo_INDEX].getYearsObserved()[i]; //adds the year to the array of years
+                yearArray_CONTAINER[i] = globalArray[globalSelectedLocation].getYearsObserved()[i]; //adds the year to the array of years
 
             }
             
             globalArray[globalSelectedLocation].setYearsObserved(yearArray_CONTAINER); //sets the array of years
 
-            chooseYear.Items.Add(globalArray[locationToAddTo_INDEX].getYearsObserved()[newLength - 1].getYear()); //adds the new year into the listbox
+            chooseYear.Items.Add(globalArray[globalSelectedLocation].getYearsObserved()[newLength - 1].getYear()); //adds the new year into the listbox
 
         }
 
         private void graphButton_Click(object sender, EventArgs e)
         {
 
-            Graph dataGraph = new Graph(globalSelectedLocation, globalSelectedYear); //instantiates an object to load the form
-
-            this.Hide(); //hides this form
-
-            dataGraph.Show(); //shows the form
+            //displays the Graph form
+            Graph dataGraph = new Graph(globalSelectedLocation, globalSelectedYear);
+            this.Hide();
+            dataGraph.Show();
 
         }
 

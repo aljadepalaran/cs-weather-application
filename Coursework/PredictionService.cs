@@ -13,53 +13,59 @@ namespace Coursework
 {
     public partial class PredictionService : Form
     {
-
+        
+        //declaration of global objects and variables to be used in several functions
         Location[] globalArray;
         int yBoundary = 250;
 
         //LABEL CONTROL PANEL
         Color labelTextColour = Color.Red;
         Color labelBackColour = Color.Transparent;
-        Size labelSize = new Size(25, 25);
+        Size labelSize = new Size(50);
         Font labelFont = new Font("Arial", 6, FontStyle.Bold);
 
+        //declaring the variables that will store the selected location, year and radio choice
         int locationIndex;
         int yearIndex;
         int radioChoice;
 
-        public PredictionService(int _location, int _year, int _radioChoice)
+        public PredictionService(int _location, int _year, int _radioChoice) //constructor that will take 3 arguements - passes selected location, year and radio button
         {
             
             InitializeComponent();
 
+            //assigns the arguements to the global variables
             locationIndex = _location;
             yearIndex = _year;
             radioChoice = _radioChoice;
 
-            ParseFile();
+            ParseFile(); //runs the file parser
 
-            DisplayPredictedGraph(locationIndex);
+            DisplayPredictedGraph(locationIndex); //displays the graph with predicted weather
 
+            //instantiates the label for the title and edits the properties
             Label titleLabel = new Label();
             titleLabel.Location = new Point(50, 50);
-            titleLabel.Text = GetChoice(radioChoice);
+            titleLabel.Text = "Hello";//GetChoice(radioChoice);
             titleLabel.ForeColor = labelTextColour;
             titleLabel.BackColor = labelBackColour;
             titleLabel.Font = new Font("Arial", 25, FontStyle.Bold); ;
-            titleLabel.Size = new Size(25,25);
+            titleLabel.Size = new Size(500,500);
 
-            Controls.Add(titleLabel);
-
+            Controls.Add(titleLabel); //adds the title label
+            titleLabel.BringToFront();
         }
 
 
         public string GetChoice(int _radioChoice)
         {
+
             int userChoice;
             string choice = "";
 
             userChoice = _radioChoice;
 
+            //switch statemnt to label the graph based on the selected radio button
             switch(userChoice)
             {
                 case 0:
@@ -83,6 +89,7 @@ namespace Coursework
             }
 
             return choice; 
+
         }
         public void ParseFile()
         {
@@ -241,15 +248,15 @@ namespace Coursework
                 
                     if(monthCounter == 0 || yearCounter == 0)
                     {
-
+                        //stops the program from searching for a negative index
                     }
                     else
                     {
                         switch(radioChoice)
                         {
                             case 0:
-                                difference = arrayOfYears[yearCounter].getMonths()[monthCounter].getMaxTemperature() - arrayOfYears[yearCounter - 1].getMonths()[monthCounter].getMaxTemperature();
-                                totalDifference[monthCounter] = totalDifference[monthCounter] + difference;
+                                difference = arrayOfYears[yearCounter].getMonths()[monthCounter].getMaxTemperature() - arrayOfYears[yearCounter - 1].getMonths()[monthCounter].getMaxTemperature(); //gets the difference between the years
+                                totalDifference[monthCounter] = totalDifference[monthCounter] + difference; //adds the difference to get a total
                                 break;
                             case 1:
                                 difference = arrayOfYears[yearCounter].getMonths()[monthCounter].getMinTemperature() - arrayOfYears[yearCounter - 1].getMonths()[monthCounter].getMinTemperature();
@@ -282,22 +289,22 @@ namespace Coursework
                 int multiplierY = yBoundary / Convert.ToInt32(LinearSearch(totalDifference));
                 double monthValue; //stores the value to display
 
-                switch (radioChoice)
+                switch (radioChoice) //loops through checking which radio choice was selected
                 {
                     case 0:
-                        monthValue = arrayOfYears[arrayOfYears.Length - 1].getMonths()[11].getMaxTemperature() + totalDifference[i] * multiplierY; //the value that is displayed on the graph
+                        monthValue = arrayOfYears[arrayOfYears.Length - 1].getMonths()[11].getMaxTemperature() + totalDifference[i] * multiplierY;
                         break;
                     case 1:
-                        monthValue = arrayOfYears[arrayOfYears.Length - 1].getMonths()[11].getMinTemperature() + totalDifference[i] * multiplierY; //the value that is displayed on the graph
+                        monthValue = arrayOfYears[arrayOfYears.Length - 1].getMonths()[11].getMinTemperature() + totalDifference[i] * multiplierY;
                         break;
                     case 2:
-                        monthValue = arrayOfYears[arrayOfYears.Length - 1].getMonths()[11].getDaysFrost() + totalDifference[i] * multiplierY; //the value that is displayed on the graph
+                        monthValue = arrayOfYears[arrayOfYears.Length - 1].getMonths()[11].getDaysFrost() + totalDifference[i] * multiplierY; 
                         break;
                     case 3:
-                        monthValue = arrayOfYears[arrayOfYears.Length - 1].getMonths()[11].getRainfall() + totalDifference[i] * multiplierY; //the value that is displayed on the graph
+                        monthValue = arrayOfYears[arrayOfYears.Length - 1].getMonths()[11].getRainfall() + totalDifference[i] * multiplierY; 
                         break;
                     case 4:
-                        monthValue = arrayOfYears[arrayOfYears.Length - 1].getMonths()[11].getSunshine() + totalDifference[i] * multiplierY; //the value that is displayed on the graph
+                        monthValue = arrayOfYears[arrayOfYears.Length - 1].getMonths()[11].getSunshine() + totalDifference[i] * multiplierY; 
                         break;
                 }
 
@@ -305,12 +312,13 @@ namespace Coursework
 
                 offsetY = Convert.ToInt32(monthValue); //sets the offset value
 
+                //instantiates and edits the properties for the picturebox
                 graphBars[i] = new PictureBox();
                 graphBars[i].Location = new Point((100 + (i * 45)), (325 - offsetY));
                 graphBars[i].Size = new Size(40, Convert.ToInt32(monthValue));
                 graphBars[i].BackColor = Color.LimeGreen;
-                Controls.Add(graphBars[i]);
 
+                //instantiates and edits the properties for the label
                 labelArray[i] = new Label();
                 labelArray[i].Location = new Point((110 + (i * 45)), 350);
                 labelArray[i].Text = GetMonthName(i);
@@ -319,12 +327,12 @@ namespace Coursework
                 labelArray[i].Font = labelFont;
                 labelArray[i].Size = labelSize;
 
-
-                Label displayLabel = labelArray[i];
+                //adds the label and the picturebox
+                Controls.Add(graphBars[i]);
                 Controls.Add(labelArray[i]);
             }
 
-        }
+        } 
 
         public string GetMonthName(int _monthIndex)
         {
@@ -380,6 +388,7 @@ namespace Coursework
             return monthOutput;
         }
 
+        //linear search to look for the largest item in the array
         public double LinearSearch(double[] _searchArray)
         {
             double largestValue = 0;
@@ -391,24 +400,24 @@ namespace Coursework
             {
                 if(arrayToSearch[i] > largestValue)
                 {
+
                     largestValue = arrayToSearch[i];
+
                 }
                 else
                 {
                     //do nothing
                 }
             }
+
             return largestValue;
 
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
-
-            Graph loadGraph = new Graph(locationIndex, yearIndex);
-
-            loadGraph.Show();
-
+            
+            //closes the graph
             this.Close();
 
         }
