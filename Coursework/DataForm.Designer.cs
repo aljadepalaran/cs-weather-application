@@ -67,6 +67,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.updateButton = new System.Windows.Forms.Button();
             this.graphButton = new System.Windows.Forms.Button();
+            this.searchBar = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label2
@@ -76,7 +77,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.label2.ForeColor = System.Drawing.Color.LimeGreen;
             this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label2.Location = new System.Drawing.Point(45, 223);
+            this.label2.Location = new System.Drawing.Point(45, 236);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 31);
             this.label2.TabIndex = 11;
@@ -101,7 +102,7 @@
             this.locationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.locationLabel.ForeColor = System.Drawing.Color.LimeGreen;
             this.locationLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.locationLabel.Location = new System.Drawing.Point(31, 3);
+            this.locationLabel.Location = new System.Drawing.Point(31, 9);
             this.locationLabel.Name = "locationLabel";
             this.locationLabel.Size = new System.Drawing.Size(117, 31);
             this.locationLabel.TabIndex = 9;
@@ -112,7 +113,7 @@
             this.chooseMonth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.chooseMonth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.chooseMonth.FormattingEnabled = true;
-            this.chooseMonth.Location = new System.Drawing.Point(12, 255);
+            this.chooseMonth.Location = new System.Drawing.Point(12, 268);
             this.chooseMonth.Name = "chooseMonth";
             this.chooseMonth.Size = new System.Drawing.Size(161, 171);
             this.chooseMonth.TabIndex = 8;
@@ -125,7 +126,7 @@
             this.chooseYear.FormattingEnabled = true;
             this.chooseYear.Location = new System.Drawing.Point(179, 34);
             this.chooseYear.Name = "chooseYear";
-            this.chooseYear.Size = new System.Drawing.Size(161, 392);
+            this.chooseYear.Size = new System.Drawing.Size(161, 405);
             this.chooseYear.TabIndex = 7;
             this.chooseYear.SelectedIndexChanged += new System.EventHandler(this.chooseYear_SelectedIndexChanged);
             // 
@@ -134,9 +135,9 @@
             this.chooseLocation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.chooseLocation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.chooseLocation.FormattingEnabled = true;
-            this.chooseLocation.Location = new System.Drawing.Point(12, 34);
+            this.chooseLocation.Location = new System.Drawing.Point(12, 71);
             this.chooseLocation.Name = "chooseLocation";
-            this.chooseLocation.Size = new System.Drawing.Size(161, 184);
+            this.chooseLocation.Size = new System.Drawing.Size(161, 158);
             this.chooseLocation.TabIndex = 6;
             this.chooseLocation.SelectedIndexChanged += new System.EventHandler(this.chooseLocation_SelectedIndexChanged);
             // 
@@ -260,7 +261,7 @@
             this.submitButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.submitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.submitButton.ForeColor = System.Drawing.Color.LimeGreen;
-            this.submitButton.Location = new System.Drawing.Point(647, 326);
+            this.submitButton.Location = new System.Drawing.Point(656, 322);
             this.submitButton.Name = "submitButton";
             this.submitButton.Size = new System.Drawing.Size(76, 45);
             this.submitButton.TabIndex = 24;
@@ -274,7 +275,7 @@
             this.addYearButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.addYearButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addYearButton.ForeColor = System.Drawing.Color.LimeGreen;
-            this.addYearButton.Location = new System.Drawing.Point(647, 274);
+            this.addYearButton.Location = new System.Drawing.Point(656, 259);
             this.addYearButton.Name = "addYearButton";
             this.addYearButton.Size = new System.Drawing.Size(76, 45);
             this.addYearButton.TabIndex = 25;
@@ -288,7 +289,7 @@
             this.addLocationButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.addLocationButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addLocationButton.ForeColor = System.Drawing.Color.LimeGreen;
-            this.addLocationButton.Location = new System.Drawing.Point(565, 326);
+            this.addLocationButton.Location = new System.Drawing.Point(527, 322);
             this.addLocationButton.Name = "addLocationButton";
             this.addLocationButton.Size = new System.Drawing.Size(76, 45);
             this.addLocationButton.TabIndex = 26;
@@ -454,7 +455,7 @@
             this.updateButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.updateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateButton.ForeColor = System.Drawing.Color.LimeGreen;
-            this.updateButton.Location = new System.Drawing.Point(565, 274);
+            this.updateButton.Location = new System.Drawing.Point(527, 259);
             this.updateButton.Name = "updateButton";
             this.updateButton.Size = new System.Drawing.Size(76, 45);
             this.updateButton.TabIndex = 44;
@@ -468,7 +469,7 @@
             this.graphButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.graphButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.graphButton.ForeColor = System.Drawing.Color.LimeGreen;
-            this.graphButton.Location = new System.Drawing.Point(565, 377);
+            this.graphButton.Location = new System.Drawing.Point(527, 380);
             this.graphButton.Name = "graphButton";
             this.graphButton.Size = new System.Drawing.Size(76, 45);
             this.graphButton.TabIndex = 45;
@@ -476,12 +477,23 @@
             this.graphButton.UseVisualStyleBackColor = false;
             this.graphButton.Click += new System.EventHandler(this.graphButton_Click);
             // 
+            // searchBar
+            // 
+            this.searchBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.searchBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.searchBar.Location = new System.Drawing.Point(12, 45);
+            this.searchBar.Name = "searchBar";
+            this.searchBar.Size = new System.Drawing.Size(161, 20);
+            this.searchBar.TabIndex = 46;
+            this.searchBar.TextChanged += new System.EventHandler(this.searchBar_TextChanged);
+            // 
             // DataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(799, 441);
+            this.ClientSize = new System.Drawing.Size(799, 465);
+            this.Controls.Add(this.searchBar);
             this.Controls.Add(this.graphButton);
             this.Controls.Add(this.updateButton);
             this.Controls.Add(this.label15);
@@ -570,5 +582,6 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button updateButton;
         private System.Windows.Forms.Button graphButton;
+        private System.Windows.Forms.TextBox searchBar;
     }
 }

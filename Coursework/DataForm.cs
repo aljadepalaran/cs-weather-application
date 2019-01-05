@@ -773,5 +773,61 @@ namespace Coursework
             dataGraph.Show();
 
         }
+
+        private void searchBar_TextChanged(object sender, EventArgs e)
+        {
+            chooseLocation.Items.Clear(); //clears the location
+
+            string userInput; //holds the search query
+            string compareArray; //holds the string being compared
+
+            int compareLength; //holds the length that will be compared
+
+            userInput = searchBar.Text;
+
+            if (userInput.Length == 0)
+            {
+                DisplayLocations();
+            }
+            else
+            {
+                for (int i = 0; i < globalArray.Length; i++)
+                {
+                    if (userInput.Length > globalArray[i].getLocationName().Length)
+                    {
+                        compareLength = globalArray[i].getLocationName().Length;
+                    }
+                    else
+                    {
+                        compareLength = userInput.Length;
+                    }
+
+                    compareArray = globalArray[i].getLocationName().Substring(0, compareLength).ToLower();
+
+                    if (userInput.Substring(0, compareLength).ToLower() == compareArray)
+                    {
+                        chooseLocation.Items.Add(globalArray[i].getLocationName());
+                    }
+                }
+            }
+
+        }
+
+        public void DisplayLocations()
+        {
+            int totalLength;
+            string nameOfLocation;
+
+            totalLength = globalArray.Length;
+
+
+            for (int i = 0; i < totalLength; i++)
+            {
+                nameOfLocation = $"{globalArray[i].getLocationName()}, {globalArray[i].getCounty()}";
+                chooseLocation.Items.Add(nameOfLocation);
+            }
+
+        }
+
     }
 }

@@ -210,6 +210,7 @@ namespace Coursework
 
         private void locationContainer_SelectedIndexChanged(object sender, EventArgs e)
         {
+           
             string locationSelected;
             int locationIndex;
 
@@ -223,15 +224,12 @@ namespace Coursework
        
         private void PredictionService_Paint(object sender, PaintEventArgs e)
         {
-            Graphics graphing = e.Graphics;
-            Pen borderPen = new Pen(Color.Blue);
-
-            graphing.DrawLine(borderPen, 300, 0, 300, 500);
-            graphing.DrawLine(borderPen, 350, 0, 350, 500);
+            //do nothing
         }
 
         private void DisplayPredictedGraph(int _location)
-        {
+        { 
+           
             //starts at 350
             Location chosenLocation;
 
@@ -241,6 +239,10 @@ namespace Coursework
 
             Year[] arrayOfYears;
 
+            for(int i = 0; i < 12; i++)
+            {
+                Controls.Remove(graphBars[i]);
+            }
             double difference = 0; //will store the difference between the months
 
             double[] totalDifference = new double[12];
@@ -283,15 +285,13 @@ namespace Coursework
                 offsetY = Convert.ToInt32(monthValue); //sets the offset value
 
                 graphBars[i] = new PictureBox();
-                graphBars[i].Location = new Point((350 + (i * 30)), (400 + offsetY));
-                graphBars[i].Size = new Size(25, Convert.ToInt32(monthValue));
+                graphBars[i].Location = new Point((350 + (i * 45)), (350 - offsetY));
+                graphBars[i].Size = new Size(40, Convert.ToInt32(monthValue));
                 graphBars[i].BackColor = Color.LimeGreen;
-                PictureBox displayBox = graphBars[i];
-                Controls.Add(displayBox);
-
+                Controls.Add(graphBars[i]);
 
                 labelArray[i] = new Label();
-                labelArray[i].Location = new Point((350 + (i * 30)), 375);
+                labelArray[i].Location = new Point((360 + (i * 45)), 375);
                 labelArray[i].Text = GetMonthName(i);
                 labelArray[i].ForeColor = labelTextColour;
                 labelArray[i].BackColor = labelBackColour;
@@ -359,5 +359,6 @@ namespace Coursework
             return monthOutput;
         }
 
+        private void button1_Click(object sender, EventArgs e
     }
 }
