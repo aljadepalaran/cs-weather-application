@@ -15,7 +15,15 @@ namespace Coursework
     {
 
         Location[] globalArray;
-        
+        int yBoundary = 300;
+
+        //LABEL CONTROL PANEL
+        Color labelTextColour = Color.Red;
+        Color labelBackColour = Color.Transparent;
+        Size labelSize = new Size(25, 25);
+        Font labelFont = new Font("Arial", 6, FontStyle.Bold);
+
+
         public PredictionService()
         {
             InitializeComponent();
@@ -207,38 +215,149 @@ namespace Coursework
 
             locationSelected = locationContainer.SelectedItem.ToString();
 
-            locationIndex = GetLocationIndex(locationSelected);
+            locationIndex = locationContainer.SelectedIndex; //gets the index of the selected item
+
+            DisplayPredictedGraph(locationIndex); //displays the graph
 
         }
-
-        public int GetLocationIndex(string _location)
-        {
-            string locationSelected;
-            int outputIndex = 0;
-
-            locationSelected = _location;
-
-            for (int i = 0; i < globalArray.Length; i++)
-            {
-                if(globalArray[i].getLocationName() == locationSelected)
-                {
-                    outputIndex = i;
-                }
-                else
-                {
-                    //do nothing 
-                }
-            }
-            return outputIndex;
-        }
-
+       
         private void PredictionService_Paint(object sender, PaintEventArgs e)
         {
             Graphics graphing = e.Graphics;
             Pen borderPen = new Pen(Color.Blue);
 
             graphing.DrawLine(borderPen, 300, 0, 300, 500);
+            graphing.DrawLine(borderPen, 350, 0, 350, 500);
+        }
+
+        private void DisplayPredictedGraph(int _location)
+        {
+            //starts at 350
+            Location chosenLocation;
+
+            PictureBox[] graphBars = new PictureBox[12]; //represents the bars
+
+            Label[] labelArray = new Label[12]; //labels the bars
+
+            Year[] arrayOfYears;
+
+            double difference = 0; //will store the difference between the months
+
+            double[] totalDifference = new double[12];
+
+            int chosenLocationIndex = _location; //index of the chosen location
+
+            double averagePattern = 0; //will store the average increase or decrease
+
+            chosenLocation = globalArray[chosenLocationIndex];
+
+            arrayOfYears = chosenLocation.getYearsObserved(); //the years to extract data from
+            for (int monthCounter = 0; monthCounter < 12; monthCounter++) //will count all the months
+            {
+                for (int yearCounter = 0; yearCounter < arrayOfYears.Length; yearCounter++)
+            {
+                
+                    if(monthCounter == 0 || yearCounter == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        difference = arrayOfYears[yearCounter].getMonths()[monthCounter].getMaxTemperature() - arrayOfYears[yearCounter - 1].getMonths()[monthCounter].getMaxTemperature();
+                        totalDifference[monthCounter] = totalDifference[monthCounter] + difference;
+                    }
+                }
+            }
+
+            averagePattern = totalDifference[1] / arrayOfYears.Length; //average difference for all january
+
+            for (int i = 0; i < 12; i++)
+            {
+
+                int offsetY; //makes sure the bars start at the same place
+                int multiplierY = 50;
+                double monthValue; //stores the value to display
+
+                monthValue = arrayOfYears[arrayOfYears.Length - 1].getMonths()[11].getMaxTemperature() + totalDifference[i] * multiplierY; //the value that is displayed on the graph
+
+                offsetY = Convert.ToInt32(monthValue); //sets the offset value
+
+                graphBars[i] = new PictureBox();
+                graphBars[i].Location = new Point((350 + (i * 30)), (400 + offsetY));
+                graphBars[i].Size = new Size(25, Convert.ToInt32(monthValue));
+                graphBars[i].BackColor = Color.LimeGreen;
+                PictureBox displayBox = graphBars[i];
+                Controls.Add(displayBox);
+
+
+                labelArray[i] = new Label();
+                labelArray[i].Location = new Point((350 + (i * 30)), 375);
+                labelArray[i].Text = GetMonthName(i);
+                labelArray[i].ForeColor = labelTextColour;
+                labelArray[i].BackColor = labelBackColour;
+                labelArray[i].Font = labelFont;
+                labelArray[i].Size = labelSize;
+
+
+                Label displayLabel = labelArray[i];
+                Controls.Add(labelArray[i]);
+            }
 
         }
+
+        public string GetMonthName(int _monthIndex)
+        {
+            int monthIndex;
+
+            string monthOutput = "";
+
+            monthIndex = _monthIndex + 1;
+
+            switch (monthIndex)
+            {
+                case 1:
+                    monthOutput = "JAN";
+                    break;
+                case 2:
+                    monthOutput = "FEB";
+                    break;
+                case 3:
+                    monthOutput = "MAR";
+                    break;
+                case 4:
+                    monthOutput = "APR";
+                    break;
+                case 5:
+                    monthOutput = "MAY";
+                    break;
+                case 6:
+                    monthOutput = "JUN";
+                    break;
+                case 7:
+                    monthOutput = "JUL";
+                    break;
+                case 8:
+                    monthOutput = "AUG";
+                    break;
+                case 9:
+                    monthOutput = "SEP";
+                    break;
+                case 10:
+                    monthOutput = "OCT";
+                    break;
+                case 11:
+                    monthOutput = "NOV";
+                    break;
+                case 12:
+                    monthOutput = "DEC";
+                    break;
+                default:
+                    monthOutput = "ERROR";
+                    break;
+            }
+
+            return monthOutput;
+        }
+
     }
 }
