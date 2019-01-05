@@ -18,7 +18,9 @@ namespace Coursework
         Location[] globalArray;
         int chosenLocationIndex;
         int chosenYearIndex;
-        int yBoundary = 300;
+        int yBoundary = 250;
+        int radioChoice;
+        bool radioCheck = false;
 
         //LABEL CONTROL PANEL
         Color labelTextColour = Color.Red;
@@ -27,6 +29,13 @@ namespace Coursework
         Font labelFont = new Font("Arial", 6, FontStyle.Bold);
 
         //GRAPH CONTROL PANEL
+
+        public Graph()
+        {
+
+            InitializeComponent();
+
+        }
 
         public Graph(int _location, int _year)
         {
@@ -44,8 +53,69 @@ namespace Coursework
             DisplayRainfall();
             DisplaySunshine();
 
+            radioChoice = 0;
+
+            LoadLabels();
+
         }
-        
+
+        public void LoadLabels()
+        {
+
+            Label maxTempLabel, minTempLabel, daysFrostLabel, rainfallLabel, sunshineLabel;
+
+            Size titleSize = new Size(200,50);
+
+            // M A X   T E M P   L A B E L
+            maxTempLabel = new Label();
+            maxTempLabel.Location = new Point(525, 20);
+            maxTempLabel.Text = "Max Temp";
+            maxTempLabel.ForeColor = labelTextColour;
+            maxTempLabel.BackColor = labelBackColour;
+            maxTempLabel.Font = new Font("Arial", 25, FontStyle.Bold); ;
+            maxTempLabel.Size = titleSize;
+
+            minTempLabel = new Label();
+            minTempLabel.Location = new Point(925, 20);
+            minTempLabel.Text = "Min Temp";
+            minTempLabel.ForeColor = labelTextColour;
+            minTempLabel.BackColor = labelBackColour;
+            minTempLabel.Font = new Font("Arial", 25, FontStyle.Bold); ;
+            minTempLabel.Size = titleSize;
+
+            daysFrostLabel = new Label();
+            daysFrostLabel.Location = new Point(110, 425);
+            daysFrostLabel.Text = "Days Frost";
+            daysFrostLabel.ForeColor = labelTextColour;
+            daysFrostLabel.BackColor = labelBackColour;
+            daysFrostLabel.Font = new Font("Arial", 25, FontStyle.Bold); ;
+            daysFrostLabel.Size = titleSize;
+
+            rainfallLabel = new Label();
+            rainfallLabel.Location = new Point(525, 425);
+            rainfallLabel.Text = "Rainfall";
+            rainfallLabel.ForeColor = labelTextColour;
+            rainfallLabel.BackColor = labelBackColour;
+            rainfallLabel.Font = new Font("Arial", 25, FontStyle.Bold); ;
+            rainfallLabel.Size = titleSize;
+
+            sunshineLabel = new Label();
+            sunshineLabel.Location = new Point(925, 425);
+            sunshineLabel.Text = "Sunshine";
+            sunshineLabel.ForeColor = labelTextColour;
+            sunshineLabel.BackColor = labelBackColour;
+            sunshineLabel.Font = new Font("Arial", 25, FontStyle.Bold); ;
+            sunshineLabel.Size = titleSize;
+
+            Controls.Add(maxTempLabel);
+            Controls.Add(minTempLabel);
+            Controls.Add(daysFrostLabel);
+            Controls.Add(rainfallLabel);
+            Controls.Add(sunshineLabel);
+
+
+        }
+
         public void ParseFile()
         {
             //declaration of location properties
@@ -227,7 +297,7 @@ namespace Coursework
 
 
                 labelArray[i] = new Label();
-                labelArray[i].Location = new Point((425 + (i * 30)), 375);
+                labelArray[i].Location = new Point((427 + (i * 30)), 375);
                 labelArray[i].Text = GetMonthName(i);
                 labelArray[i].ForeColor = labelTextColour;
                 labelArray[i].BackColor = labelBackColour;
@@ -290,7 +360,7 @@ namespace Coursework
                 Controls.Add(displayBox);
 
                 labelArray[i] = new Label();
-                labelArray[i].Location = new Point((825 + (i * 30)), 375);
+                labelArray[i].Location = new Point((827 + (i * 30)), 375);
                 labelArray[i].Text = GetMonthName(i);
                 labelArray[i].ForeColor = labelTextColour;
                 labelArray[i].BackColor = labelBackColour;
@@ -352,7 +422,7 @@ namespace Coursework
                 Controls.Add(displayBox);
 
                 labelArray[i] = new Label();
-                labelArray[i].Location = new Point((25 + (i * 30)), 775);
+                labelArray[i].Location = new Point((27 + (i * 30)), 775);
                 labelArray[i].Text = GetMonthName(i);
                 labelArray[i].ForeColor = labelTextColour;
                 labelArray[i].BackColor = labelBackColour;
@@ -416,7 +486,7 @@ namespace Coursework
 
 
                 labelArray[i] = new Label();
-                labelArray[i].Location = new Point((425 + (i * 30)), 775);
+                labelArray[i].Location = new Point((427 + (i * 30)), 775);
                 labelArray[i].Text = GetMonthName(i);
                 labelArray[i].ForeColor = labelTextColour;
                 labelArray[i].BackColor = labelBackColour;
@@ -479,7 +549,7 @@ namespace Coursework
 
 
                 labelArray[i] = new Label();
-                labelArray[i].Location = new Point((825 + (i * 30)), 775);
+                labelArray[i].Location = new Point((827 + (i * 30)), 775);
                 labelArray[i].Text = GetMonthName(i);
                 labelArray[i].ForeColor = labelTextColour;
                 labelArray[i].BackColor = labelBackColour;
@@ -582,15 +652,53 @@ namespace Coursework
             return monthOutput;
         }
 
-        private void PredictButton_Click(object sender, EventArgs e)
+        private void predictButton_Click(object sender, EventArgs e)
         {
 
-            PredictionService showForm = new PredictionService();
+            if (radioCheck == false)
+            {
+                MessageBox.Show("You have not selected a month property");
+            }
+            else if(radioCheck == true)
+            {
+                PredictionService loadForm = new PredictionService(chosenLocationIndex, chosenYearIndex, radioChoice);
 
-            this.Hide();
+                loadForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("ERROR");
+            }
+        }
 
-            showForm.Show();
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            radioChoice = 0;
+            radioCheck = true;
+        }
 
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            radioChoice = 1;
+            radioCheck = true;
+        }
+
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            radioChoice = 2;
+            radioCheck = true;
+        }
+
+        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        {
+            radioChoice = 3;
+            radioCheck = true;
+        }
+
+        private void radioButton5_CheckedChanged(object sender, EventArgs e)
+        {
+            radioChoice = 4;
+            radioCheck = true;
         }
     }
 }

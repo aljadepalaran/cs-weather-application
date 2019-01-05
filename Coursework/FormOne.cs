@@ -21,18 +21,18 @@ namespace Coursework
         private void updateButton_Click(object sender, EventArgs e)
         {
 
-            DataForm loadForm = new DataForm();
+            DataForm loadForm = new DataForm(); //creates a way to access the form
 
-            this.Hide();
+            this.Hide(); //hides the current form
 
-            loadForm.Show();
+            loadForm.Show(); //shows the main form (dataForm)
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
 
-            Application.Exit();
+            Application.Exit(); //exits if the user click quit
 
         }
     }

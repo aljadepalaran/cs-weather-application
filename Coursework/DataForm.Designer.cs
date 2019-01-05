@@ -261,7 +261,7 @@
             this.submitButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.submitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.submitButton.ForeColor = System.Drawing.Color.LimeGreen;
-            this.submitButton.Location = new System.Drawing.Point(656, 322);
+            this.submitButton.Location = new System.Drawing.Point(644, 323);
             this.submitButton.Name = "submitButton";
             this.submitButton.Size = new System.Drawing.Size(76, 45);
             this.submitButton.TabIndex = 24;
@@ -275,7 +275,7 @@
             this.addYearButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.addYearButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addYearButton.ForeColor = System.Drawing.Color.LimeGreen;
-            this.addYearButton.Location = new System.Drawing.Point(656, 259);
+            this.addYearButton.Location = new System.Drawing.Point(644, 260);
             this.addYearButton.Name = "addYearButton";
             this.addYearButton.Size = new System.Drawing.Size(76, 45);
             this.addYearButton.TabIndex = 25;
@@ -289,7 +289,7 @@
             this.addLocationButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.addLocationButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addLocationButton.ForeColor = System.Drawing.Color.LimeGreen;
-            this.addLocationButton.Location = new System.Drawing.Point(527, 322);
+            this.addLocationButton.Location = new System.Drawing.Point(549, 323);
             this.addLocationButton.Name = "addLocationButton";
             this.addLocationButton.Size = new System.Drawing.Size(76, 45);
             this.addLocationButton.TabIndex = 26;
@@ -455,11 +455,11 @@
             this.updateButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.updateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateButton.ForeColor = System.Drawing.Color.LimeGreen;
-            this.updateButton.Location = new System.Drawing.Point(527, 259);
+            this.updateButton.Location = new System.Drawing.Point(549, 260);
             this.updateButton.Name = "updateButton";
             this.updateButton.Size = new System.Drawing.Size(76, 45);
             this.updateButton.TabIndex = 44;
-            this.updateButton.Text = "Update";
+            this.updateButton.Text = "Update Form";
             this.updateButton.UseVisualStyleBackColor = false;
             this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
             // 
@@ -469,7 +469,7 @@
             this.graphButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.graphButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.graphButton.ForeColor = System.Drawing.Color.LimeGreen;
-            this.graphButton.Location = new System.Drawing.Point(527, 380);
+            this.graphButton.Location = new System.Drawing.Point(549, 381);
             this.graphButton.Name = "graphButton";
             this.graphButton.Size = new System.Drawing.Size(76, 45);
             this.graphButton.TabIndex = 45;
@@ -491,7 +491,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(799, 465);
             this.Controls.Add(this.searchBar);
             this.Controls.Add(this.graphButton);

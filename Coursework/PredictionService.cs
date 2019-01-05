@@ -15,7 +15,7 @@ namespace Coursework
     {
 
         Location[] globalArray;
-        int yBoundary = 300;
+        int yBoundary = 250;
 
         //LABEL CONTROL PANEL
         Color labelTextColour = Color.Red;
@@ -23,17 +23,67 @@ namespace Coursework
         Size labelSize = new Size(25, 25);
         Font labelFont = new Font("Arial", 6, FontStyle.Bold);
 
+        int locationIndex;
+        int yearIndex;
+        int radioChoice;
 
-        public PredictionService()
+        public PredictionService(int _location, int _year, int _radioChoice)
         {
+            
             InitializeComponent();
+
+            locationIndex = _location;
+            yearIndex = _year;
+            radioChoice = _radioChoice;
 
             ParseFile();
 
-            DisplayLocations();
+            DisplayPredictedGraph(locationIndex);
+
+            Label titleLabel = new Label();
+            titleLabel.Location = new Point(50, 50);
+            titleLabel.Text = GetChoice(radioChoice);
+            titleLabel.ForeColor = labelTextColour;
+            titleLabel.BackColor = labelBackColour;
+            titleLabel.Font = new Font("Arial", 25, FontStyle.Bold); ;
+            titleLabel.Size = new Size(25,25);
+
+            Controls.Add(titleLabel);
 
         }
 
+
+        public string GetChoice(int _radioChoice)
+        {
+            int userChoice;
+            string choice = "";
+
+            userChoice = _radioChoice;
+
+            switch(userChoice)
+            {
+                case 0:
+                    choice = "Max Temperature";
+                    break;
+                case 1:
+                    choice = "Min Temperature";
+                    break;
+                case 2:
+                    choice = "Days Frost";
+                    break;
+                case 3:
+                    choice = "Rainfall";
+                    break;
+                case 4:
+                    choice = "Sunshine";
+                    break;
+                default:
+                    choice = "ERROR LOADING CHOICE";
+                    break;
+            }
+
+            return choice; 
+        }
         public void ParseFile()
         {
             //declaration of location properties
@@ -151,77 +201,7 @@ namespace Coursework
             }
             globalArray = locationArray; //sets the global array so that it can be used outside the parse
         }
-
-        private void searchBar_TextChanged(object sender, EventArgs e)
-        {
-
-            locationContainer.Items.Clear(); //clears the location
-
-            string userInput; //holds the search query
-            string compareArray; //holds the string being compared
-
-            int compareLength; //holds the length that will be compared
-
-            userInput = searchBar.Text;
-
-            if (userInput.Length == 0)
-            {
-                DisplayLocations();
-            }
-            else
-            {
-                for (int i = 0; i < globalArray.Length; i++)
-                {
-                    if (userInput.Length > globalArray[i].getLocationName().Length)
-                    {
-                        compareLength = globalArray[i].getLocationName().Length;
-                    }
-                    else
-                    {
-                        compareLength = userInput.Length;
-                    }
-
-                    compareArray = globalArray[i].getLocationName().Substring(0, compareLength).ToLower();
-
-                    if (userInput.Substring(0, compareLength).ToLower() == compareArray)
-                    {
-                        locationContainer.Items.Add(globalArray[i].getLocationName());
-                    }
-                }
-            }
-            
-        }
-
-        public void DisplayLocations()
-        {
-            int totalLength;
-            string nameOfLocation;
-
-            totalLength = globalArray.Length;
-            
-
-            for(int i = 0; i < totalLength; i++)
-            {
-                nameOfLocation = $"{globalArray[i].getLocationName()}, {globalArray[i].getCounty()}";
-                locationContainer.Items.Add(nameOfLocation);
-            }
-
-        }
-
-        private void locationContainer_SelectedIndexChanged(object sender, EventArgs e)
-        {
-           
-            string locationSelected;
-            int locationIndex;
-
-            locationSelected = locationContainer.SelectedItem.ToString();
-
-            locationIndex = locationContainer.SelectedIndex; //gets the index of the selected item
-
-            DisplayPredictedGraph(locationIndex); //displays the graph
-
-        }
-       
+        
         private void PredictionService_Paint(object sender, PaintEventArgs e)
         {
             //do nothing
@@ -265,8 +245,30 @@ namespace Coursework
                     }
                     else
                     {
-                        difference = arrayOfYears[yearCounter].getMonths()[monthCounter].getMaxTemperature() - arrayOfYears[yearCounter - 1].getMonths()[monthCounter].getMaxTemperature();
-                        totalDifference[monthCounter] = totalDifference[monthCounter] + difference;
+                        switch(radioChoice)
+                        {
+                            case 0:
+                                difference = arrayOfYears[yearCounter].getMonths()[monthCounter].getMaxTemperature() - arrayOfYears[yearCounter - 1].getMonths()[monthCounter].getMaxTemperature();
+                                totalDifference[monthCounter] = totalDifference[monthCounter] + difference;
+                                break;
+                            case 1:
+                                difference = arrayOfYears[yearCounter].getMonths()[monthCounter].getMinTemperature() - arrayOfYears[yearCounter - 1].getMonths()[monthCounter].getMinTemperature();
+                                totalDifference[monthCounter] = totalDifference[monthCounter] + difference;
+                                break;
+                            case 2:
+                                difference = arrayOfYears[yearCounter].getMonths()[monthCounter].getDaysFrost() - arrayOfYears[yearCounter - 1].getMonths()[monthCounter].getDaysFrost();
+                                totalDifference[monthCounter] = totalDifference[monthCounter] + difference;
+                                break;
+                            case 3:
+                                difference = arrayOfYears[yearCounter].getMonths()[monthCounter].getRainfall() - arrayOfYears[yearCounter - 1].getMonths()[monthCounter].getRainfall();
+                                totalDifference[monthCounter] = totalDifference[monthCounter] + difference;
+                                break;
+                            case 4:
+                                difference = arrayOfYears[yearCounter].getMonths()[monthCounter].getSunshine() - arrayOfYears[yearCounter - 1].getMonths()[monthCounter].getSunshine();
+                                totalDifference[monthCounter] = totalDifference[monthCounter] + difference;
+                                break;
+                        }
+                        
                     }
                 }
             }
@@ -277,21 +279,40 @@ namespace Coursework
             {
 
                 int offsetY; //makes sure the bars start at the same place
-                int multiplierY = 50;
+                int multiplierY = yBoundary / Convert.ToInt32(LinearSearch(totalDifference));
                 double monthValue; //stores the value to display
+
+                switch (radioChoice)
+                {
+                    case 0:
+                        monthValue = arrayOfYears[arrayOfYears.Length - 1].getMonths()[11].getMaxTemperature() + totalDifference[i] * multiplierY; //the value that is displayed on the graph
+                        break;
+                    case 1:
+                        monthValue = arrayOfYears[arrayOfYears.Length - 1].getMonths()[11].getMinTemperature() + totalDifference[i] * multiplierY; //the value that is displayed on the graph
+                        break;
+                    case 2:
+                        monthValue = arrayOfYears[arrayOfYears.Length - 1].getMonths()[11].getDaysFrost() + totalDifference[i] * multiplierY; //the value that is displayed on the graph
+                        break;
+                    case 3:
+                        monthValue = arrayOfYears[arrayOfYears.Length - 1].getMonths()[11].getRainfall() + totalDifference[i] * multiplierY; //the value that is displayed on the graph
+                        break;
+                    case 4:
+                        monthValue = arrayOfYears[arrayOfYears.Length - 1].getMonths()[11].getSunshine() + totalDifference[i] * multiplierY; //the value that is displayed on the graph
+                        break;
+                }
 
                 monthValue = arrayOfYears[arrayOfYears.Length - 1].getMonths()[11].getMaxTemperature() + totalDifference[i] * multiplierY; //the value that is displayed on the graph
 
                 offsetY = Convert.ToInt32(monthValue); //sets the offset value
 
                 graphBars[i] = new PictureBox();
-                graphBars[i].Location = new Point((350 + (i * 45)), (350 - offsetY));
+                graphBars[i].Location = new Point((100 + (i * 45)), (325 - offsetY));
                 graphBars[i].Size = new Size(40, Convert.ToInt32(monthValue));
                 graphBars[i].BackColor = Color.LimeGreen;
                 Controls.Add(graphBars[i]);
 
                 labelArray[i] = new Label();
-                labelArray[i].Location = new Point((360 + (i * 45)), 375);
+                labelArray[i].Location = new Point((110 + (i * 45)), 350);
                 labelArray[i].Text = GetMonthName(i);
                 labelArray[i].ForeColor = labelTextColour;
                 labelArray[i].BackColor = labelBackColour;
@@ -359,6 +380,37 @@ namespace Coursework
             return monthOutput;
         }
 
-        private void button1_Click(object sender, EventArgs e
+        public double LinearSearch(double[] _searchArray)
+        {
+            double largestValue = 0;
+            double[] arrayToSearch;
+
+            arrayToSearch = _searchArray;
+
+            for(int i = 0; i < arrayToSearch.Length; i++)
+            {
+                if(arrayToSearch[i] > largestValue)
+                {
+                    largestValue = arrayToSearch[i];
+                }
+                else
+                {
+                    //do nothing
+                }
+            }
+            return largestValue;
+
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+
+            Graph loadGraph = new Graph(locationIndex, yearIndex);
+
+            loadGraph.Show();
+
+            this.Close();
+
+        }
     }
 }
