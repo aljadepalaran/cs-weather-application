@@ -50,8 +50,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(681, 387);
+            this.ClientSize = new System.Drawing.Size(684, 411);
             this.Controls.Add(this.backButton);
+            this.MaximumSize = new System.Drawing.Size(700, 450);
+            this.MinimumSize = new System.Drawing.Size(700, 450);
             this.Name = "PredictionService";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.PredictionService_Paint);
             this.ResumeLayout(false);

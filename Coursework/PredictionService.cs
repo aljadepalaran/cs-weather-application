@@ -21,8 +21,8 @@ namespace Coursework
         //LABEL CONTROL PANEL
         Color labelTextColour = Color.Red;
         Color labelBackColour = Color.Transparent;
-        Size labelSize = new Size(50);
-        Font labelFont = new Font("Arial", 6, FontStyle.Bold);
+        Size labelSize = new Size(40,50);
+        Font labelFont = new Font("Arial", 8, FontStyle.Bold);
 
         //declaring the variables that will store the selected location, year and radio choice
         int locationIndex;
@@ -45,12 +45,12 @@ namespace Coursework
 
             //instantiates the label for the title and edits the properties
             Label titleLabel = new Label();
-            titleLabel.Location = new Point(50, 50);
-            titleLabel.Text = "Hello";//GetChoice(radioChoice);
+            titleLabel.Location = new Point(90, 12);
+            titleLabel.Text = $"[{GetChoice(radioChoice)}]";
             titleLabel.ForeColor = labelTextColour;
-            titleLabel.BackColor = labelBackColour;
+            titleLabel.BackColor = Color.Transparent;
             titleLabel.Font = new Font("Arial", 25, FontStyle.Bold); ;
-            titleLabel.Size = new Size(500,500);
+            titleLabel.Size = new Size(1000, 50);
 
             Controls.Add(titleLabel); //adds the title label
             titleLabel.BringToFront();
@@ -211,7 +211,14 @@ namespace Coursework
         
         private void PredictionService_Paint(object sender, PaintEventArgs e)
         {
-            //do nothing
+            Graphics L = e.Graphics; //creates a graphics object
+
+            Pen P = new Pen(Color.DarkGray); //creates a pen object
+            P.Width = 5;
+
+            //draws lines for borders to separate the graphs
+            L.DrawLine(P, 95, 353, 640, 353);
+            L.DrawLine(P, 95, 55, 95, 356);
         }
 
         private void DisplayPredictedGraph(int _location)
@@ -314,13 +321,13 @@ namespace Coursework
 
                 //instantiates and edits the properties for the picturebox
                 graphBars[i] = new PictureBox();
-                graphBars[i].Location = new Point((100 + (i * 45)), (325 - offsetY));
+                graphBars[i].Location = new Point((100 + (i * 45)), (350 - offsetY));
                 graphBars[i].Size = new Size(40, Convert.ToInt32(monthValue));
                 graphBars[i].BackColor = Color.LimeGreen;
 
                 //instantiates and edits the properties for the label
                 labelArray[i] = new Label();
-                labelArray[i].Location = new Point((110 + (i * 45)), 350);
+                labelArray[i].Location = new Point((105 + (i * 45)), 360);
                 labelArray[i].Text = GetMonthName(i);
                 labelArray[i].ForeColor = labelTextColour;
                 labelArray[i].BackColor = labelBackColour;
