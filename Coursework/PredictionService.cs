@@ -237,6 +237,7 @@ namespace Coursework
             {
                 Controls.Remove(graphBars[i]);
             }
+
             double difference = 0; //will store the difference between the months
 
             double[] totalDifference = new double[12];
@@ -245,9 +246,14 @@ namespace Coursework
 
             double averagePattern = 0; //will store the average increase or decrease
 
+            bool negativeHeight = false;
+
+            bool displayNegative = false;
+
             chosenLocation = globalArray[chosenLocationIndex];
 
             arrayOfYears = chosenLocation.getYearsObserved(); //the years to extract data from
+
             for (int monthCounter = 0; monthCounter < 12; monthCounter++) //will count all the months
             {
                 for (int yearCounter = 0; yearCounter < arrayOfYears.Length; yearCounter++)
@@ -294,15 +300,18 @@ namespace Coursework
 
                 int offsetY; //makes sure the bars start at the same place
                 int multiplierY = yBoundary / Convert.ToInt32(LinearSearch(totalDifference));
+
                 double monthValue; //stores the value to display
 
                 switch (radioChoice) //loops through checking which radio choice was selected
                 {
                     case 0:
                         monthValue = arrayOfYears[arrayOfYears.Length - 1].getMonths()[11].getMaxTemperature() + totalDifference[i] * multiplierY;
+                        displayNegative = true;
                         break;
                     case 1:
                         monthValue = arrayOfYears[arrayOfYears.Length - 1].getMonths()[11].getMinTemperature() + totalDifference[i] * multiplierY;
+                        displayNegative = true;
                         break;
                     case 2:
                         monthValue = arrayOfYears[arrayOfYears.Length - 1].getMonths()[11].getDaysFrost() + totalDifference[i] * multiplierY; 
@@ -317,13 +326,47 @@ namespace Coursework
 
                 monthValue = arrayOfYears[arrayOfYears.Length - 1].getMonths()[11].getMaxTemperature() + totalDifference[i] * multiplierY; //the value that is displayed on the graph
 
+                if (displayNegative == true) //checks if the graph should contain negative
+                {
+
+                    if (monthValue < 0)
+                    {
+
+                        negativeHeight = true;
+
+                    }
+                    else
+                    {
+                        
+                    }
+
+                }
+                else
+                {
+
+                }
+
+                monthValue = Math.Abs(monthValue);
+
                 offsetY = Convert.ToInt32(monthValue); //sets the offset value
 
                 //instantiates and edits the properties for the picturebox
                 graphBars[i] = new PictureBox();
                 graphBars[i].Location = new Point((100 + (i * 45)), (350 - offsetY));
                 graphBars[i].Size = new Size(40, Convert.ToInt32(monthValue));
-                graphBars[i].BackColor = Color.LimeGreen;
+
+                if (negativeHeight == true)
+                {
+
+                    graphBars[i].BackColor = Color.Red;
+
+                }
+                else
+                {
+
+                    graphBars[i].BackColor = Color.LimeGreen;
+
+                }
 
                 //instantiates and edits the properties for the label
                 labelArray[i] = new Label();
