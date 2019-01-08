@@ -546,151 +546,157 @@ namespace Coursework
         //rewrites the file
         public void ChangeFile()
         {
-            //file writing
-            string fileLocation; //contains the location of the testfile
-            StreamWriter fileWriter; //used to write to files
 
-            //assigns value to the fileLocation and fileWriter
-            fileLocation = "testFile.txt"; //references bin/Debug
-            fileWriter = new StreamWriter(fileLocation, false); //instantiates the fileWriter with the parameter false
-
-            //declaration of array sizes - defaults to 0
-            int locationSize = 0;
-            int yearSize = 0;
-
-            //declaration of counters - defaults to 0 
-            int locationCounter = 0;
-            int yearCounter = 0;
-            int monthCounter = 0;
-
-            //declaration of location properties - defaults to either 0 or ""
-            string locationName = "";
-            string street = "";
-            string county = "";
-            string postcode = "";
-            double latitude = 0;
-            double longitude = 0;
-
-            //declaration of year properties  - defaults to either 0 or ""
-            string yearDescription = "";
-            int theYear = 0;
-
-            //declaration of month properties  - defaults to 0
-            double maxTemperature = 0;
-            double minTemperature = 0;
-            int daysFrost = 0;
-            double rainfall = 0;
-            double sunshine = 0;
-
-            //declaration of local arrays of objects
-            Location[] locationArray_LOCAL;
-            Year[] yearArray_LOCAL;
-            Month[] monthArray_LOCAL;
-
-            locationSize = globalArray.Length; //finds the length of the location array - used to loop through locations
-
-            fileWriter.WriteLine(locationSize); //writes the number of locations into the data file
-            
-            while (locationCounter != locationSize) //loops through the locations
+            if (fileName == "")
             {
 
-                locationArray_LOCAL = globalArray; //creates a local instance of the location array
+                MessageBox.Show("ERROR: File not selected");
 
-                //assigns location properties
-                locationName = locationArray_LOCAL[locationCounter].getLocationName();
-                street = locationArray_LOCAL[locationCounter].getStreet();
-                county = locationArray_LOCAL[locationCounter].getCounty();
-                postcode = locationArray_LOCAL[locationCounter].getPostcode();
-                latitude = locationArray_LOCAL[locationCounter].getLatitude();
-                longitude = locationArray_LOCAL[locationCounter].getLongitude();
+            }
+            else
+            {
 
-                //writes location properties
-                fileWriter.WriteLine(locationName);
-                fileWriter.WriteLine(street);
-                fileWriter.WriteLine(county);
-                fileWriter.WriteLine(postcode);
-                fileWriter.WriteLine(latitude);
-                fileWriter.WriteLine(longitude);
+                StreamWriter fileWriter = new StreamWriter(fileName);
 
-                yearArray_LOCAL = locationArray_LOCAL[locationCounter].getYearsObserved();  //creates a local instance of the year array
+                //declaration of array sizes - defaults to 0
+                int locationSize = 0;
+                int yearSize = 0;
 
-                yearSize = yearArray_LOCAL.Length;
-                fileWriter.WriteLine(yearSize);
+                //declaration of counters - defaults to 0 
+                int locationCounter = 0;
+                int yearCounter = 0;
+                int monthCounter = 0;
 
-                yearCounter = 0; //resets the counter ready for another location
+                //declaration of location properties - defaults to either 0 or ""
+                string locationName = "";
+                string street = "";
+                string county = "";
+                string postcode = "";
+                double latitude = 0;
+                double longitude = 0;
 
-                //loop to read in the years
-                while (yearCounter != yearSize)
+                //declaration of year properties  - defaults to either 0 or ""
+                string yearDescription = "";
+                int theYear = 0;
+
+                //declaration of month properties  - defaults to 0
+                double maxTemperature = 0;
+                double minTemperature = 0;
+                int daysFrost = 0;
+                double rainfall = 0;
+                double sunshine = 0;
+
+                //declaration of local arrays of objects
+                Location[] locationArray_LOCAL;
+                Year[] yearArray_LOCAL;
+                Month[] monthArray_LOCAL;
+
+                locationSize = globalArray.Length; //finds the length of the location array - used to loop through locations
+
+                fileWriter.WriteLine(locationSize); //writes the number of locations into the data file
+
+                while (locationCounter != locationSize) //loops through the locations
                 {
 
-                    //assigns year properties
-                    yearDescription = yearArray_LOCAL[yearCounter].getDescription().ToString();
-                    theYear = yearArray_LOCAL[yearCounter].getYear();
+                    locationArray_LOCAL = globalArray; //creates a local instance of the location array
 
-                    //writes year properties
-                    fileWriter.WriteLine(yearDescription);
-                    fileWriter.WriteLine(theYear);
+                    //assigns location properties
+                    locationName = locationArray_LOCAL[locationCounter].getLocationName();
+                    street = locationArray_LOCAL[locationCounter].getStreet();
+                    county = locationArray_LOCAL[locationCounter].getCounty();
+                    postcode = locationArray_LOCAL[locationCounter].getPostcode();
+                    latitude = locationArray_LOCAL[locationCounter].getLatitude();
+                    longitude = locationArray_LOCAL[locationCounter].getLongitude();
 
-                    //creates a local version of the month array
-                    monthArray_LOCAL = yearArray_LOCAL[yearCounter].getMonths();
+                    //writes location properties
+                    fileWriter.WriteLine(locationName);
+                    fileWriter.WriteLine(street);
+                    fileWriter.WriteLine(county);
+                    fileWriter.WriteLine(postcode);
+                    fileWriter.WriteLine(latitude);
+                    fileWriter.WriteLine(longitude);
 
-                    monthCounter = 0; //resets the month counter ready for another year
+                    yearArray_LOCAL = locationArray_LOCAL[locationCounter].getYearsObserved();  //creates a local instance of the year array
 
-                    //loop to write in the months
-                    while (monthCounter != 12) //month counter - 12 months
+                    yearSize = yearArray_LOCAL.Length;
+                    fileWriter.WriteLine(yearSize);
+
+                    yearCounter = 0; //resets the counter ready for another location
+
+                    //loop to read in the years
+                    while (yearCounter != yearSize)
                     {
-                        //assigns month properties
-                        maxTemperature = monthArray_LOCAL[monthCounter].getMaxTemperature();
-                        minTemperature = monthArray_LOCAL[monthCounter].getMinTemperature();
-                        daysFrost = monthArray_LOCAL[monthCounter].getDaysFrost();
-                        rainfall = monthArray_LOCAL[monthCounter].getRainfall();
-                        sunshine = monthArray_LOCAL[monthCounter].getSunshine();
 
-                        //checks if the month is the first - stops the year from being appended twice
-                        if (monthCounter == 0)
-                        {
-                            //writes the month properties to the file
-                            fileWriter.WriteLine(monthCounter + 1);
-                            fileWriter.WriteLine(maxTemperature);
-                            fileWriter.WriteLine(minTemperature);
-                            fileWriter.WriteLine(daysFrost);
-                            fileWriter.WriteLine(rainfall);
-                            fileWriter.WriteLine(sunshine);
-                        }
-                        else
-                        {
-                            //writes the month properties to the file (and year)
-                            fileWriter.WriteLine(theYear);
-                            fileWriter.WriteLine(monthCounter + 1);
-                            fileWriter.WriteLine(maxTemperature);
-                            fileWriter.WriteLine(minTemperature);
-                            fileWriter.WriteLine(daysFrost);
-                            fileWriter.WriteLine(rainfall);
+                        //assigns year properties
+                        yearDescription = yearArray_LOCAL[yearCounter].getDescription().ToString();
+                        theYear = yearArray_LOCAL[yearCounter].getYear();
 
-                            //checks if the month is the last in the entire data set - stops the creation of a blank line at the end
-                            if (locationCounter == (locationSize - 1) & yearCounter == (yearSize - 1) & monthCounter == 11)
+                        //writes year properties
+                        fileWriter.WriteLine(yearDescription);
+                        fileWriter.WriteLine(theYear);
+
+                        //creates a local version of the month array
+                        monthArray_LOCAL = yearArray_LOCAL[yearCounter].getMonths();
+
+                        monthCounter = 0; //resets the month counter ready for another year
+
+                        //loop to write in the months
+                        while (monthCounter != 12) //month counter - 12 months
+                        {
+                            //assigns month properties
+                            maxTemperature = monthArray_LOCAL[monthCounter].getMaxTemperature();
+                            minTemperature = monthArray_LOCAL[monthCounter].getMinTemperature();
+                            daysFrost = monthArray_LOCAL[monthCounter].getDaysFrost();
+                            rainfall = monthArray_LOCAL[monthCounter].getRainfall();
+                            sunshine = monthArray_LOCAL[monthCounter].getSunshine();
+
+                            //checks if the month is the first - stops the year from being appended twice
+                            if (monthCounter == 0)
                             {
-                                fileWriter.Write(sunshine); //writes the hours of sunshine
+                                //writes the month properties to the file
+                                fileWriter.WriteLine(monthCounter + 1);
+                                fileWriter.WriteLine(maxTemperature);
+                                fileWriter.WriteLine(minTemperature);
+                                fileWriter.WriteLine(daysFrost);
+                                fileWriter.WriteLine(rainfall);
+                                fileWriter.WriteLine(sunshine);
                             }
                             else
                             {
-                                fileWriter.WriteLine(sunshine); //writes the hours of sunshine
+                                //writes the month properties to the file (and year)
+                                fileWriter.WriteLine(theYear);
+                                fileWriter.WriteLine(monthCounter + 1);
+                                fileWriter.WriteLine(maxTemperature);
+                                fileWriter.WriteLine(minTemperature);
+                                fileWriter.WriteLine(daysFrost);
+                                fileWriter.WriteLine(rainfall);
+
+                                //checks if the month is the last in the entire data set - stops the creation of a blank line at the end
+                                if (locationCounter == (locationSize - 1) & yearCounter == (yearSize - 1) & monthCounter == 11)
+                                {
+                                    fileWriter.Write(sunshine); //writes the hours of sunshine
+                                }
+                                else
+                                {
+                                    fileWriter.WriteLine(sunshine); //writes the hours of sunshine
+                                }
                             }
+
+                            monthCounter++; //increments the month counter - stops infinite loop
+
                         }
 
-                        monthCounter++; //increments the month counter - stops infinite loop
+                        yearCounter++; //increments the year counter - stops infinite loop
 
                     }
 
-                    yearCounter++; //increments the year counter - stops infinite loop
+                    locationCounter++; //increments the location counter - stops infinite loop
 
                 }
 
-                locationCounter++; //increments the location counter - stops infinite loop
-
+                fileWriter.Close(); //closes the file writer
             }
 
-            fileWriter.Close(); //closes the file writer
 
         }
 
