@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Graph));
             this.backButton = new System.Windows.Forms.Button();
             this.predictButton = new System.Windows.Forms.Button();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
@@ -35,6 +36,8 @@
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // backButton
@@ -42,12 +45,13 @@
             this.backButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.backButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.backButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.backButton.Font = new System.Drawing.Font("Oswald", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.backButton.ForeColor = System.Drawing.Color.LimeGreen;
-            this.backButton.Location = new System.Drawing.Point(32, 33);
+            this.backButton.Location = new System.Drawing.Point(114, 12);
             this.backButton.Name = "backButton";
-            this.backButton.Size = new System.Drawing.Size(137, 45);
+            this.backButton.Size = new System.Drawing.Size(137, 86);
             this.backButton.TabIndex = 27;
-            this.backButton.Text = "Go Back";
+            this.backButton.Text = "Close";
             this.backButton.UseVisualStyleBackColor = false;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
@@ -56,10 +60,11 @@
             this.predictButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.predictButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.predictButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.predictButton.Font = new System.Drawing.Font("Oswald", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.predictButton.ForeColor = System.Drawing.Color.LimeGreen;
-            this.predictButton.Location = new System.Drawing.Point(175, 33);
+            this.predictButton.Location = new System.Drawing.Point(257, 12);
             this.predictButton.Name = "predictButton";
-            this.predictButton.Size = new System.Drawing.Size(137, 45);
+            this.predictButton.Size = new System.Drawing.Size(137, 86);
             this.predictButton.TabIndex = 28;
             this.predictButton.Text = "Predict Weather";
             this.predictButton.UseVisualStyleBackColor = false;
@@ -73,7 +78,7 @@
             this.radioButton5.FlatAppearance.BorderSize = 5;
             this.radioButton5.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
             this.radioButton5.ForeColor = System.Drawing.Color.LimeGreen;
-            this.radioButton5.Location = new System.Drawing.Point(114, 216);
+            this.radioButton5.Location = new System.Drawing.Point(128, 264);
             this.radioButton5.Name = "radioButton5";
             this.radioButton5.Size = new System.Drawing.Size(69, 17);
             this.radioButton5.TabIndex = 41;
@@ -90,7 +95,7 @@
             this.radioButton4.FlatAppearance.BorderSize = 5;
             this.radioButton4.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
             this.radioButton4.ForeColor = System.Drawing.Color.LimeGreen;
-            this.radioButton4.Location = new System.Drawing.Point(114, 193);
+            this.radioButton4.Location = new System.Drawing.Point(128, 241);
             this.radioButton4.Name = "radioButton4";
             this.radioButton4.Size = new System.Drawing.Size(60, 17);
             this.radioButton4.TabIndex = 40;
@@ -107,7 +112,7 @@
             this.radioButton3.FlatAppearance.BorderSize = 5;
             this.radioButton3.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
             this.radioButton3.ForeColor = System.Drawing.Color.LimeGreen;
-            this.radioButton3.Location = new System.Drawing.Point(114, 170);
+            this.radioButton3.Location = new System.Drawing.Point(128, 218);
             this.radioButton3.Name = "radioButton3";
             this.radioButton3.Size = new System.Drawing.Size(87, 17);
             this.radioButton3.TabIndex = 39;
@@ -124,7 +129,7 @@
             this.radioButton2.FlatAppearance.BorderSize = 5;
             this.radioButton2.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
             this.radioButton2.ForeColor = System.Drawing.Color.LimeGreen;
-            this.radioButton2.Location = new System.Drawing.Point(114, 147);
+            this.radioButton2.Location = new System.Drawing.Point(128, 195);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(105, 17);
             this.radioButton2.TabIndex = 38;
@@ -141,7 +146,7 @@
             this.radioButton1.FlatAppearance.BorderSize = 5;
             this.radioButton1.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
             this.radioButton1.ForeColor = System.Drawing.Color.LimeGreen;
-            this.radioButton1.Location = new System.Drawing.Point(114, 124);
+            this.radioButton1.Location = new System.Drawing.Point(128, 172);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(108, 17);
             this.radioButton1.TabIndex = 37;
@@ -150,12 +155,24 @@
             this.radioButton1.UseVisualStyleBackColor = true;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(85, 86);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 48;
+            this.pictureBox1.TabStop = false;
+            // 
             // Graph
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(1194, 801);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.radioButton5);
             this.Controls.Add(this.radioButton4);
             this.Controls.Add(this.radioButton3);
@@ -164,11 +181,13 @@
             this.Controls.Add(this.predictButton);
             this.Controls.Add(this.backButton);
             this.ForeColor = System.Drawing.Color.LimeGreen;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(1210, 840);
             this.MinimumSize = new System.Drawing.Size(1210, 840);
             this.Name = "Graph";
             this.Text = "Graph";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Graph_Paint);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -183,5 +202,6 @@
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PredictionService));
             this.backButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -52,6 +53,7 @@
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(684, 411);
             this.Controls.Add(this.backButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(700, 450);
             this.MinimumSize = new System.Drawing.Size(700, 450);
             this.Name = "PredictionService";

@@ -15,7 +15,9 @@ namespace Coursework
     {
         public DataForm()
         {
+
             InitializeComponent();
+
         }
 
         //declaration of all global objects - used to reference in methods outside the parser
@@ -28,134 +30,151 @@ namespace Coursework
         int globalSelectedLocation;
         int globalSelectedMonth;
 
+        string fileName = "";
+
         public void ParseFile()
         {
-            //declaration of location properties
-            string locationName;
-            string street;
-            string county;
-            string postcode;
-            double latitude;
-            double longitude;
-            Year[] yearsObserved;
 
-            //declaration of year properties
-            int theYear;
-            string yearDescription;
-            Month[] monthsObserved;
-
-            //declaration of month properties
-            int monthID;
-            double maxTemperature;
-            double minTemperature;
-            int daysFrost;
-            double rainfall;
-            double sunshine;
-
-            //declaring class arrays locally
-            Location[] locationArray;
-
-            //declaration of StreamReader variables and methods
-            string filePath = "inputEXTENDED.txt"; //the filepath of the text file
-            StreamReader fileReader = new StreamReader(filePath); //streamreader to input data from the file
-
-            int numberOfLocations; //number of locations
-            int numberOfYears = 0; //the number of years in the location dataset
-            int monthCounter; //increments to 12, loops back
-            int yearCounter = 0; //increments to same # as years
-            int locationCounter = 0; //counter used to loop through the locations
-
-            numberOfLocations = Convert.ToInt32(fileReader.ReadLine()); //reads the very first line - number of locations
-
-            locationArray = new Location[numberOfLocations]; //initializes the location array
-            globalArray = new Location[numberOfLocations];
-            while (locationCounter != numberOfLocations)
+            if (fileName == "")
             {
-                //reads location properties
-                locationName = fileReader.ReadLine();
-                street = fileReader.ReadLine();
-                county = fileReader.ReadLine();
-                postcode = fileReader.ReadLine();
-                latitude = Convert.ToDouble(fileReader.ReadLine());
-                longitude = Convert.ToDouble(fileReader.ReadLine());
-                numberOfYears = Convert.ToInt32(fileReader.ReadLine());
 
-                chooseLocation.Items.Add(locationName);
+                MessageBox.Show("ERROR: File not selected");
 
-                yearsObserved = new Year[numberOfYears]; //initializes the year array
+            }
+            else
+            {
 
-                yearCounter = 0; //resets the counter ready for another location
+                StreamReader fileReader = new StreamReader(fileName);
 
-                //loop to read in the years
-                while (yearCounter != numberOfYears)
+                //declaration of location properties
+                string locationName;
+                string street;
+                string county;
+                string postcode;
+                double latitude;
+                double longitude;
+                Year[] yearsObserved;
+
+                //declaration of year properties
+                int theYear;
+                string yearDescription;
+                Month[] monthsObserved;
+
+                //declaration of month properties
+                int monthID;
+                double maxTemperature;
+                double minTemperature;
+                int daysFrost;
+                double rainfall;
+                double sunshine;
+
+                //declaring class arrays locally
+                Location[] locationArray;
+
+                //declaration of StreamReader variables and methods
+                //string filePath = "inputEXTENDED.txt"; //the filepath of the text file
+                //StreamReader fileReader = new StreamReader(filePath); //streamreader to input data from the file
+
+                int numberOfLocations; //number of locations
+                int numberOfYears = 0; //the number of years in the location dataset
+                int monthCounter; //increments to 12, loops back
+                int yearCounter = 0; //increments to same # as years
+                int locationCounter = 0; //counter used to loop through the locations
+
+                numberOfLocations = Convert.ToInt32(fileReader.ReadLine()); //reads the very first line - number of locations
+
+                locationArray = new Location[numberOfLocations]; //initializes the location array
+                globalArray = new Location[numberOfLocations];
+                while (locationCounter != numberOfLocations)
                 {
-                    //reads year properties
-                    yearDescription = fileReader.ReadLine();
-                    theYear = Convert.ToInt32(fileReader.ReadLine());
+                    //reads location properties
+                    locationName = fileReader.ReadLine();
+                    street = fileReader.ReadLine();
+                    county = fileReader.ReadLine();
+                    postcode = fileReader.ReadLine();
+                    latitude = Convert.ToDouble(fileReader.ReadLine());
+                    longitude = Convert.ToDouble(fileReader.ReadLine());
+                    numberOfYears = Convert.ToInt32(fileReader.ReadLine());
 
-                    monthsObserved = new Month[12]; //initializes the months array
+                    chooseLocation.Items.Add(locationName);
 
-                    monthCounter = 0; //resets the month counter ready for another year
+                    yearsObserved = new Year[numberOfYears]; //initializes the year array
 
-                    //loop to read in the months
-                    while (monthCounter != 12) //month counter - 12 months
+                    yearCounter = 0; //resets the counter ready for another location
+
+                    //loop to read in the years
+                    while (yearCounter != numberOfYears)
                     {
-                        //if start of the year, year would have been read already
-                        if (monthCounter == 0)
+                        //reads year properties
+                        yearDescription = fileReader.ReadLine();
+                        theYear = Convert.ToInt32(fileReader.ReadLine());
+
+                        monthsObserved = new Month[12]; //initializes the months array
+
+                        monthCounter = 0; //resets the month counter ready for another year
+
+                        //loop to read in the months
+                        while (monthCounter != 12) //month counter - 12 months
                         {
-                            //reading month properties and placing them into the variable
-                            monthID = Convert.ToInt32(fileReader.ReadLine());
-                            maxTemperature = Convert.ToDouble(fileReader.ReadLine());
-                            minTemperature = Convert.ToDouble(fileReader.ReadLine());
-                            daysFrost = Convert.ToInt32(fileReader.ReadLine());
-                            rainfall = Convert.ToDouble(fileReader.ReadLine());
-                            sunshine = Convert.ToDouble(fileReader.ReadLine());
+                            //if start of the year, year would have been read already
+                            if (monthCounter == 0)
+                            {
+                                //reading month properties and placing them into the variable
+                                monthID = Convert.ToInt32(fileReader.ReadLine());
+                                maxTemperature = Convert.ToDouble(fileReader.ReadLine());
+                                minTemperature = Convert.ToDouble(fileReader.ReadLine());
+                                daysFrost = Convert.ToInt32(fileReader.ReadLine());
+                                rainfall = Convert.ToDouble(fileReader.ReadLine());
+                                sunshine = Convert.ToDouble(fileReader.ReadLine());
+                            }
+                            //if month is not the start, year would loop so would need to be read but no assigned
+                            else
+                            {
+                                //reading month properties and placing them into the variable
+                                fileReader.ReadLine();
+                                monthID = Convert.ToInt32(fileReader.ReadLine());
+                                maxTemperature = Convert.ToDouble(fileReader.ReadLine());
+                                minTemperature = Convert.ToDouble(fileReader.ReadLine());
+                                daysFrost = Convert.ToInt32(fileReader.ReadLine());
+                                rainfall = Convert.ToDouble(fileReader.ReadLine());
+                                sunshine = Convert.ToDouble(fileReader.ReadLine());
+                            }
+
+                            Month tempMonth = new Month(monthID, maxTemperature, minTemperature, daysFrost, rainfall, sunshine); //creates the month to add to the month array
+
+                            monthsObserved[monthCounter] = tempMonth; //adds the month to the month array
+
+                            monthCounter++; //increments the month counter - stops infinite loop
+
                         }
-                        //if month is not the start, year would loop so would need to be read but no assigned
-                        else
-                        {
-                            //reading month properties and placing them into the variable
-                            fileReader.ReadLine();
-                            monthID = Convert.ToInt32(fileReader.ReadLine());
-                            maxTemperature = Convert.ToDouble(fileReader.ReadLine());
-                            minTemperature = Convert.ToDouble(fileReader.ReadLine());
-                            daysFrost = Convert.ToInt32(fileReader.ReadLine());
-                            rainfall = Convert.ToDouble(fileReader.ReadLine());
-                            sunshine = Convert.ToDouble(fileReader.ReadLine());
-                        }
 
-                        Month tempMonth = new Month(monthID, maxTemperature, minTemperature, daysFrost, rainfall, sunshine); //creates the month to add to the month array
+                        Year tempYear = new Year(theYear, yearDescription, monthsObserved); //creates the year to add to the year array
 
-                        monthsObserved[monthCounter] = tempMonth; //adds the month to the month array
+                        yearsObserved[yearCounter] = tempYear; //adds the year to the year array
 
-                        monthCounter++; //increments the month counter - stops infinite loop
+                        yearCounter++; //increments the year counter - stops infinite loop
 
                     }
 
-                    Year tempYear = new Year(theYear, yearDescription, monthsObserved); //creates the year to add to the year array
+                    Location tempLocation = new Location(locationName, street, county, postcode, latitude, longitude, yearsObserved); //creates the location to add to the month array
 
-                    yearsObserved[yearCounter] = tempYear; //adds the year to the year array
+                    //MainView.Items.Add(tempLocation);
 
-                    yearCounter++; //increments the year counter - stops infinite loop
+                    locationArray[locationCounter] = tempLocation; //adds the location to the location array
+
+                    locationCounter++; //increments the location counter - stops infinite loop
 
                 }
 
-                Location tempLocation = new Location(locationName, street, county, postcode, latitude, longitude, yearsObserved); //creates the location to add to the month array
-
-                //MainView.Items.Add(tempLocation);
-
-                locationArray[locationCounter] = tempLocation; //adds the location to the location array
-
-                locationCounter++; //increments the location counter - stops infinite loop
-
+                globalArray = locationArray; //sets the global array so that it can be used outside the parse
+               
             }
-
-            globalArray = locationArray; //sets the global array so that it can be used outside the parse
 
         }
 
         private void DataForm_Load(object sender, EventArgs e)
         {
+
             //clears the listboxes
             chooseLocation.Items.Clear();
             chooseYear.Items.Clear();
@@ -181,7 +200,6 @@ namespace Coursework
             rainfallBox.Clear();
             sunshineBox.Clear();
 
-            ParseFile(); //runs after the form is loaded
         }
 
         private void chooseLocation_SelectedIndexChanged(object sender, EventArgs e)
@@ -727,6 +745,9 @@ namespace Coursework
             globalArray[newSize - 1].setYearsObserved(newYearArray); //sets the year array - redundant but safe
 
             chooseLocation.Items.Add(globalArray[newSize - 1].getLocationName()); //adds the new location into the listbox
+
+            chooseLocation.SelectedIndex = chooseLocation.Items.Count - 1;
+
         }
 
         private void addYearButton_Click(object sender, EventArgs e)
@@ -774,6 +795,8 @@ namespace Coursework
 
             chooseYear.Items.Add(globalArray[globalSelectedLocation].getYearsObserved()[newLength - 1].getYear()); //adds the new year into the listbox
 
+            chooseYear.SelectedIndex = chooseYear.Items.Count - 1;
+
         }
 
         private void graphButton_Click(object sender, EventArgs e)
@@ -781,7 +804,7 @@ namespace Coursework
 
             //displays the Graph form
             Graph dataGraph = new Graph(globalSelectedLocation, globalSelectedYear);
-            this.Hide();
+            
             dataGraph.Show();
 
         }
@@ -855,5 +878,97 @@ namespace Coursework
 
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            HelpForm newForm = new HelpForm();
+
+            newForm.Show();
+
+        }
+
+        private void DataForm_Paint(object sender, PaintEventArgs e)
+        {
+
+            Graphics draw = e.Graphics; //creates a graphics object
+
+            Pen pen = new Pen(Color.LimeGreen); //creates a pen object
+            
+            //location wrapper
+            draw.DrawLine(pen, 440, 43, 700, 43); //top
+
+            draw.DrawLine(pen, 440, 43, 440, 225); //left
+
+            draw.DrawLine(pen, 440, 225, 700, 225); //bottom
+
+            draw.DrawLine(pen, 700, 43, 700, 225); //right
+
+            //year wrapper
+            draw.DrawLine(pen, 440, 245, 700, 245); //top
+
+            draw.DrawLine(pen, 440, 245, 440, 315); //left
+
+            draw.DrawLine(pen, 440, 315, 700, 315); //bottom
+
+            draw.DrawLine(pen, 700, 245, 700, 315); //right
+
+            //month wrapper
+            draw.DrawLine(pen, 440, 340, 700, 340); //top
+
+            draw.DrawLine(pen, 440, 340, 440, 520); //left
+
+            draw.DrawLine(pen, 440, 520, 700, 520); //bottom
+
+            draw.DrawLine(pen, 700, 340, 700, 520); //right
+
+        }
+
+        private void loadFile_Click(object sender, EventArgs e)
+        {
+
+            //clears the listboxes
+            chooseLocation.Items.Clear();
+            chooseYear.Items.Clear();
+            chooseMonth.Items.Clear();
+
+            //clears the location data
+            locationNameBox.Clear();
+            streetBox.Clear();
+            countyBox.Clear();
+            postcodeBox.Clear();
+            latitudeBox.Clear();
+            longitudeBox.Clear();
+
+            //clears the year data
+            yearBox.Clear();
+            yearDescriptionBox.Clear();
+
+            //clears the month data
+            monthBox.Clear();
+            maxTempBox.Clear();
+            minTempBox.Clear();
+            daysFrostBox.Clear();
+            rainfallBox.Clear();
+            sunshineBox.Clear();
+
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.ShowDialog();
+            fileName = openFileDialog1.FileName;
+
+            ParseFile(); //runs after the form is loaded
+
+            //sets the selected index for when the program opens
+            chooseLocation.SelectedIndex = 0;
+            chooseYear.SelectedIndex = 0;
+            chooseMonth.SelectedIndex = 0;
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            Application.Exit();
+
+        }
     }
 }

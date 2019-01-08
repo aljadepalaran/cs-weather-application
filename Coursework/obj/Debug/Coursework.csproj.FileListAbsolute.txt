@@ -40,3 +40,4 @@ C:\Users\palar\source\repos\SOFT151-Coursework\Coursework\obj\Debug\Coursework.e
 C:\Users\palar\source\repos\SOFT151-Coursework\Coursework\obj\Debug\Coursework.pdb
 C:\Users\palar\source\repos\SOFT151-Coursework\Coursework\obj\Debug\Coursework.csprojAssemblyReference.cache
 C:\Users\palar\source\repos\SOFT151-Coursework\Coursework\obj\Debug\Coursework.PredictionService.resources
+C:\Users\palar\source\repos\SOFT151-Coursework\Coursework\obj\Debug\Coursework.HelpForm.resources
