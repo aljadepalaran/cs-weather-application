@@ -167,6 +167,8 @@ namespace Coursework
                 }
 
                 globalArray = locationArray; //sets the global array so that it can be used outside the parse
+
+                fileReader.Close();
                
             }
 
@@ -925,42 +927,48 @@ namespace Coursework
 
         private void loadFile_Click(object sender, EventArgs e)
         {
+            try
+            {
+                //clears the listboxes
+                chooseLocation.Items.Clear();
+                chooseYear.Items.Clear();
+                chooseMonth.Items.Clear();
 
-            //clears the listboxes
-            chooseLocation.Items.Clear();
-            chooseYear.Items.Clear();
-            chooseMonth.Items.Clear();
+                //clears the location data
+                locationNameBox.Clear();
+                streetBox.Clear();
+                countyBox.Clear();
+                postcodeBox.Clear();
+                latitudeBox.Clear();
+                longitudeBox.Clear();
 
-            //clears the location data
-            locationNameBox.Clear();
-            streetBox.Clear();
-            countyBox.Clear();
-            postcodeBox.Clear();
-            latitudeBox.Clear();
-            longitudeBox.Clear();
+                //clears the year data
+                yearBox.Clear();
+                yearDescriptionBox.Clear();
 
-            //clears the year data
-            yearBox.Clear();
-            yearDescriptionBox.Clear();
+                //clears the month data
+                monthBox.Clear();
+                maxTempBox.Clear();
+                minTempBox.Clear();
+                daysFrostBox.Clear();
+                rainfallBox.Clear();
+                sunshineBox.Clear();
 
-            //clears the month data
-            monthBox.Clear();
-            maxTempBox.Clear();
-            minTempBox.Clear();
-            daysFrostBox.Clear();
-            rainfallBox.Clear();
-            sunshineBox.Clear();
+                OpenFileDialog openFileDialog1 = new OpenFileDialog();
+                openFileDialog1.ShowDialog();
+                fileName = openFileDialog1.FileName;
 
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.ShowDialog();
-            fileName = openFileDialog1.FileName;
+                ParseFile(); //runs after the form is loaded
 
-            ParseFile(); //runs after the form is loaded
-
-            //sets the selected index for when the program opens
-            chooseLocation.SelectedIndex = 0;
-            chooseYear.SelectedIndex = 0;
-            chooseMonth.SelectedIndex = 0;
+                //sets the selected index for when the program opens
+                chooseLocation.SelectedIndex = 0;
+                chooseYear.SelectedIndex = 0;
+                chooseMonth.SelectedIndex = 0;
+            }
+            catch
+            {
+                MessageBox.Show("ERROR: Did you select a file?");
+            }
 
         }
 
